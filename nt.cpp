@@ -4,6 +4,8 @@ int main( )
 {
   Int8_t i8;
 
+  std::cout << "Has Infinity: " << std::numeric_limits< Int8_t >::has_infinity << std::endl;
+
   std::cout << "Infinity: " << std::numeric_limits< Int8_t >::infinity( ) << std::endl;
 
   std::cout << "Min: " << std::numeric_limits< Int8_t >::min( ) << std::endl;
