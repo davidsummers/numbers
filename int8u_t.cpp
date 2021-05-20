@@ -42,7 +42,7 @@ std::string Int8u_t::ToString( ) const
 
     ss << (int) value;
 
-    if ( m_Value & 1 )
+    if ( uncertain )
     {
         ss << "...";
     }
