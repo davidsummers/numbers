@@ -1,5 +1,8 @@
 #pragma once
 
+// Int8_t
+// Has Infinity.
+
 #include <cstdint>
 #include <iostream>
 #include <limits>
@@ -41,6 +44,10 @@ namespace std
     public:
 
       static constexpr const bool has_infinity = true;
+
+      static constexpr const bool is_specialized = true;
+
+      static constexpr const bool is_exact = true;
 
       static constexpr Int8_t infinity( )
       {
