@@ -1,5 +1,5 @@
-#include "int8_t.h"
-#include "int8u_t.h"
+#include "intX_t.h"
+#include "intXu_t.h"
 
 int main( )
 {
@@ -21,7 +21,23 @@ int main( )
 
     std::cout << "Lowest: " << std::numeric_limits< Int8_t >::lowest( ) << std::endl;
 
-    for ( uint16_t u16 = 0; u16 <= 255; u16++ )
+    for ( uint16_t u16 = 0; u16 <= 5; u16++ )
+    {
+      i8 = u16;
+      std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8 << std::endl;
+    }
+
+    std::cout << "..." << std::endl;
+
+    for ( uint16_t u16 = 128 - 5; u16 <= 128 + 5; u16++ )
+    {
+      i8 = u16;
+      std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8 << std::endl;
+    }
+
+    std::cout << "..." << std::endl;
+
+    for ( uint16_t u16 = 255 - 5; u16 <= 255; u16++ )
     {
       i8 = u16;
       std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8 << std::endl;
@@ -47,9 +63,25 @@ int main( )
 
     std::cout << "Lowest: " << std::numeric_limits< Int8u_t >::lowest( ) << std::endl;
 
-    for ( uint16_t u16 = 0; u16 <= 255; u16++ )
+    for ( uint16_t u16 = 0; u16 <= 5; u16++ )
     {
-      i8u.SetEncodedValue( u16 );
+      i8u = u16;
+      std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8u << std::endl;
+    }
+
+    std::cout << "..." << std::endl;
+
+    for ( uint16_t u16 = 128 - 5; u16 <= 128 + 5; u16++ )
+    {
+      i8u = u16;
+      std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8u << std::endl;
+    }
+
+    std::cout << "..." << std::endl;
+
+    for ( uint16_t u16 = 255 - 5; u16 <= 255; u16++ )
+    {
+      i8u = u16;
       std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8u << std::endl;
     }
   }

@@ -8,13 +8,11 @@ set( CMAKE_CXX_EXTENSIONS        OFF )
 
 set( SOURCE_FILES
      nt.cpp
-     int8_t.cpp
-     int8u_t.cpp
    )
 
 set( HEADER_FILES
-     int8_t.h
-     int8u_t.h
+     intX_t.h
+     intXu_t.h
    )
 
 add_executable( nt
