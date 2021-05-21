@@ -103,7 +103,7 @@ class IntXu_t
 
   private:
 
-    int8_t m_Value = 0;
+    TYPE m_Value = 0;
 };
 
 using Int8u_t  = IntXu_t< int8_t  >;
