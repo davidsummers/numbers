@@ -13,7 +13,7 @@ class IntX_t
 {
   public:
 
-    static constexpr const TYPE INF = 0x80;
+    static constexpr const TYPE INF = 1 << ( ( sizeof( TYPE ) * 8 ) - 1 );
 
     constexpr IntX_t( )
     {
@@ -28,7 +28,7 @@ class IntX_t
     {
       std::stringstream ss;
 
-      if ( ( ( m_Value & 0x80 ) != 0 ) && ( ( m_Value & 0x7f ) == 0 ) )
+      if ( m_Value == INF )
       {
         ss << "INF";
       }
@@ -64,8 +64,8 @@ std::ostream &operator <<( std::ostream &s_, const IntX_t< TYPE > &value_ )
 
 namespace std
 {
-  template < >
-  class numeric_limits< Int8_t >
+  template < typename TYPE >
+  class numeric_limits< IntX_t< TYPE > >
   {
     public:
 
@@ -75,27 +75,24 @@ namespace std
 
       static constexpr const bool is_exact = true;
 
-      static constexpr Int8_t infinity( )
+      static constexpr IntX_t< TYPE > infinity( )
       {
-        return Int8_t::INF;
+        return IntX_t< TYPE >::INF;
       }
 
-      static constexpr Int8_t lowest( )
+      static constexpr IntX_t< TYPE > lowest( )
       {
-        return -127;
+        return IntX_t< TYPE >::INF + 1;
       }
 
-      static constexpr Int8_t min( )
+      static constexpr IntX_t< TYPE > min( )
       {
-        return -127;
+        return IntX_t< TYPE >::INF + 1;
       }
 
-      static constexpr Int8_t max( )
+      static constexpr IntX_t< TYPE > max( )
       {
-        return 127;
+        return -( IntX_t< TYPE >::INF + 1 );
       }
   };
 }
-
-
-

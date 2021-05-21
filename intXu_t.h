@@ -50,22 +50,22 @@ class IntXu_t
     {
       std::stringstream ss;
 
-      bool negative  = ( m_Value & 0x80 ) != 0;
       bool uncertain = ( m_Value & 1 ) != 0;
-      int8_t value = m_Value >> 1;
+      TYPE value = m_Value >> 1;
 
-      if ( negative && ( ( m_Value & 0x7f ) == 0 ) )
+      if ( m_Value == INF )
       {
         ss << "INF";
       }
       else
       {
-        if ( negative && uncertain )
+        if ( m_Value < 0 && uncertain )
         {
-          value = -( ~value ); // Negative of one's complement.
+          value = ~value;
+          value = -value; // Negative of one's complement.
         }
 
-        if ( negative && uncertain && value == 0 )
+        if ( m_Value < 0 && uncertain && value == 0 )
         {
           ss << "-";
         }
@@ -125,8 +125,8 @@ bool operator <( const int8_t &lhs_, const Int8u_t &rhs_ );
 
 namespace std
 {
-  template < >
-  class numeric_limits< Int8u_t >
+  template < typename TYPE >
+  class numeric_limits< IntXu_t< TYPE > >
   {
     public:
 
@@ -136,31 +136,31 @@ namespace std
 
       static constexpr const bool is_exact = false;
 
-      static constexpr Int8u_t infinity( )
+      static constexpr IntXu_t< TYPE > infinity( )
       {
-        Int8u_t value;
-        value.SetEncodedValue( Int8u_t::INF );
+        IntXu_t< TYPE > value;
+        value.SetEncodedValue( IntXu_t< TYPE >::INF );
         return value;
       }
 
-      static constexpr Int8u_t lowest( )
+      static constexpr IntXu_t< TYPE > lowest( )
       {
-        Int8u_t value;
-        value.SetEncodedValue( -127 ); // Is -63 encoded.
+        IntXu_t< TYPE > value;
+        value.SetEncodedValue( IntXu_t< TYPE >::INF + 1 );
         return value;
       }
 
-      static constexpr Int8u_t min( )
+      static constexpr IntXu_t< TYPE > min( )
       {
-          Int8u_t value;
-          value.SetEncodedValue( -127 ); // Is -63 encoded.
+          IntXu_t< TYPE > value;
+          value.SetEncodedValue( IntXu_t< TYPE >::INF + 1 );
           return value;
       }
 
-      static constexpr Int8u_t max( )
+      static constexpr IntXu_t< TYPE > max( )
       {
-          Int8u_t value;
-          value.SetEncodedValue( 127 ); // Is 63 encoded.
+          IntXu_t< TYPE > value;
+          value.SetEncodedValue( - ( IntXu_t< TYPE >::INF + 1 ) );
           return value;
       }
   };
