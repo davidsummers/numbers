@@ -3,7 +3,7 @@
 // IntXu_t
 // Has Infinity.
 // Has 'uncertainty' bit as lowest bit.
-// This reduces the min/max to -63 / 63.
+// This reduces the min/max to half the "normal" min/max.
 
 /*
  * S NN U
