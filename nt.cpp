@@ -1,189 +1,83 @@
 #include "intX_t.h"
 #include "intXu_t.h"
 
-int main( )
+template< typename TYPE >
+void test( const std::string &nameOfType_, uint64_t min_, uint64_t mid_, uint64_t max_ )
 {
   uint64_t counter = 0;
 
+  TYPE myVal;
+
+  std::cout << nameOfType_ << std::endl;
+  std::cout << "======" << std::endl;
+
+  std::cout << "Is Exact: " << std::numeric_limits< TYPE >::is_exact << std::endl;
+
+  std::cout << "Has Infinity: " << std::numeric_limits< TYPE >::has_infinity << std::endl;
+
+  std::cout << "Infinity: " << std::numeric_limits< TYPE >::infinity( ) << std::endl;
+
+  std::cout << "Min: " << std::numeric_limits< TYPE >::min( ) << std::endl;
+
+  std::cout << "Max: " << std::numeric_limits< TYPE >::max( ) << std::endl;
+
+  std::cout << "Lowest: " << std::numeric_limits< TYPE >::lowest( ) << std::endl;
+
+  for ( counter = min_; counter <= 5; counter++ )
   {
-    Int8_t i8;
-
-    std::cout << "Int8_t" << std::endl;
-    std::cout << "======" << std::endl;
-
-    std::cout << "Is Exact: " << std::numeric_limits< Int8_t >::is_exact << std::endl;
-
-    std::cout << "Has Infinity: " << std::numeric_limits< Int8_t >::has_infinity << std::endl;
-
-    std::cout << "Infinity: " << std::numeric_limits< Int8_t >::infinity( ) << std::endl;
-
-    std::cout << "Min: " << std::numeric_limits< Int8_t >::min( ) << std::endl;
-
-    std::cout << "Max: " << std::numeric_limits< Int8_t >::max( ) << std::endl;
-
-    std::cout << "Lowest: " << std::numeric_limits< Int8_t >::lowest( ) << std::endl;
-
-    for ( counter = 0; counter <= 5; counter++ )
-    {
-      i8 = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i8 << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 128 - 5; counter <= 128 + 5; counter++ )
-    {
-      i8 = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i8 << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 255 - 5; counter <= 255; counter++ )
-    {
-      i8 = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i8 << std::endl;
-    }
+    myVal.SetEncodedValue( counter );
+    std::cout << "Unsigned " << counter << " -> Signed " << myVal << std::endl;
   }
 
+  std::cout << "..." << std::endl;
+
+  for ( counter = mid_ - 5; counter <= mid_ + 5; counter++ )
   {
-    Int16_t i16;
-
-    std::cout << "Int16_t" << std::endl;
-    std::cout << "======" << std::endl;
-
-    std::cout << "Is Exact: " << std::numeric_limits< Int16_t >::is_exact << std::endl;
-
-    std::cout << "Has Infinity: " << std::numeric_limits< Int16_t >::has_infinity << std::endl;
-
-    std::cout << "Infinity: " << std::numeric_limits< Int16_t >::infinity( ) << std::endl;
-
-    std::cout << "Min: " << std::numeric_limits< Int16_t >::min( ) << std::endl;
-
-    std::cout << "Max: " << std::numeric_limits< Int16_t >::max( ) << std::endl;
-
-    std::cout << "Lowest: " << std::numeric_limits< Int16_t >::lowest( ) << std::endl;
-
-    for ( counter = 0; counter <= 5; counter++ )
-    {
-      i16 = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i16 << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 32768 - 5; counter <= 32768 + 5; counter++ )
-    {
-      i16 = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i16 << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 65535 - 5; counter <= 65535; counter++ )
-    {
-      i16 = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i16 << std::endl;
-    }
+    myVal.SetEncodedValue( counter );
+    std::cout << "Unsigned " << counter << " -> Signed " << myVal << std::endl;
   }
 
+  std::cout << "..." << std::endl;
+
+  for ( counter = max_ - 5; counter <= max_; counter++ )
   {
-    Int8u_t i8u;
-
-    std::cout << "Int8u_t" << std::endl;
-    std::cout << "======" << std::endl;
-
-    std::cout << "Is Exact: " << std::numeric_limits< Int8u_t >::is_exact << std::endl;
-
-    std::cout << "Has Infinity: " << std::numeric_limits< Int8u_t >::has_infinity << std::endl;
-
-    std::cout << "Infinity: " << std::numeric_limits< Int8u_t >::infinity( ) << std::endl;
-
-    std::cout << "Min: " << std::numeric_limits< Int8u_t >::min( ) << std::endl;
-
-    std::cout << "Max: " << std::numeric_limits< Int8u_t >::max( ) << std::endl;
-
-    std::cout << "Lowest: " << std::numeric_limits< Int8u_t >::lowest( ) << std::endl;
-
-    for ( uint16_t u16 = 0; u16 <= 5; u16++ )
-    {
-      i8u = u16;
-      std::cout << "Unsigned " << (int) u16 << " -> Signed " << i8u << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 128 - 5; counter <= 128 + 5; counter++ )
-    {
-      i8u = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i8u << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 255 - 5; counter <= 255; counter++ )
-    {
-      i8u = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i8u << std::endl;
-    }
+    myVal.SetEncodedValue( counter );
+    std::cout << "Unsigned " << counter << " -> Signed " << myVal << std::endl;
   }
+}
 
-  {
-    Int16u_t i16u;
+int main( )
+{
+  test< Int8_t >( "Int8_t", 0, 128, 255 );
 
-    std::cout << "Int16u_t" << std::endl;
-    std::cout << "======" << std::endl;
+  test< Int16_t >( "Int16_t", 0, 32768, 65535 );
 
-    std::cout << "Is Exact: " << std::numeric_limits< Int16u_t >::is_exact << std::endl;
+  test< Int8u_t >( "Int8_t", 0, 128, 255 );
 
-    std::cout << "Has Infinity: " << std::numeric_limits< Int16u_t >::has_infinity << std::endl;
-
-    std::cout << "Infinity: " << std::numeric_limits< Int16u_t >::infinity( ) << std::endl;
-
-    std::cout << "Min: " << std::numeric_limits< Int16u_t >::min( ) << std::endl;
-
-    std::cout << "Max: " << std::numeric_limits< Int16u_t >::max( ) << std::endl;
-
-    std::cout << "Lowest: " << std::numeric_limits< Int16u_t >::lowest( ) << std::endl;
-
-    for ( counter = 0; counter <= 5; counter++ )
-    {
-      i16u = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i16u << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 32768 - 5; counter <= 32768 + 5; counter++ )
-    {
-      i16u = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i16u << std::endl;
-    }
-
-    std::cout << "..." << std::endl;
-
-    for ( counter = 65535 - 5; counter <= 65535; counter++ )
-    {
-      i16u = counter;
-      std::cout << "Unsigned " << counter << " -> Signed " << i16u << std::endl;
-    }
-  }
+  test< Int16u_t >( "Int16u_t", 0, 32768, 65535 );
 
   {
     Int16_t x = 5;
     Int16_t y = 10;
     Int16_t z = x * y;
 
-    std::cout << x << " * " << y << " = " << z << std::endl;
+    std::cout << "Int16_t: " << x << " * " << y << " = " << z << std::endl;
   }
 
   {
-    std::cout << "Testing Uncertain 5 * 10" << std::endl;
     Int16u_t x = 5;
     Int16u_t y = 10;
     Int16u_t z = x * y;
 
-    std::cout << x << " * " << y << " = " << z << std::endl;
+    std::cout << "Int16u_t: " << x << " * " << y << " = " << z << std::endl;
+  }
+
+  {
+    Int16u_t x = 10;
+    Int16u_t y = 30000;
+    Int16u_t z = x * y;
+
+    std::cout << "Int16u_t: (10)=" << x << " * (30000)=" << y << " = " << z << std::endl;
   }
 
   return 0;

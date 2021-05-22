@@ -41,22 +41,22 @@ class IntXu_t
     // Constructors.
     constexpr IntXu_t( )
     {
-      std::cout << "IntXu_t: Set Value = 0" << std::endl;
     }
 
     constexpr IntXu_t( const TYPE value_ )
       : m_Value( value_ * 2 )
     {
-      if ( value_ > static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::max( ) ) )
+      TYPE max = static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::max( ) );
+      if ( value_ > max  )
       {
-        m_Value = static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::max( ) ) + 1;
-      }
-      else if ( value_ < static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::min( ) ) )
-      {
-        m_Value = static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::min( ) ) - 1;
+        m_Value = max * 2 + 1;
       }
 
-      std::cout << "IntXu_t: Set Value = " << value_ << " Encoded: " << m_Value << std::endl;
+      TYPE min = static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::min( ) );
+      if ( value_ < min  )
+      {
+        m_Value = max * 2 - 1;
+      }
     }
 
     // Special numbers
@@ -67,18 +67,18 @@ class IntXu_t
 
     void SetMin( )
     {
-      SetEncodedValue( IntXu_t< TYPE >::INF + 1 );
+      SetEncodedValue( IntXu_t< TYPE >::INF + 2 );
     }
 
     void SetMax( )
     {
-      SetEncodedValue( - ( IntXu_t< TYPE >::INF + 1 ) );
+      SetEncodedValue( - ( IntXu_t< TYPE >::INF + 2 ) );
     }
 
     // Conversion operators
     explicit operator TYPE( ) const
     {
-      TYPE value = m_Value >> 2;
+      TYPE value = m_Value >> 1;
       return value;
     }
 
@@ -86,13 +86,9 @@ class IntXu_t
     IntXu_t< TYPE > operator *( const IntXu_t< TYPE > rhs_ )
     {
       const TYPE value = static_cast< TYPE >( *this );
-      std::cout << "LHS: " << value << std::endl;
       const TYPE rhs   = static_cast< TYPE >( rhs_ );
-      std::cout << "RHS: " << rhs << std::endl;
       TYPE result = value * rhs;
-      std::cout << "Result: " << result << std::endl;
       IntXu_t res( result );
-      std::cout << "Converted Result: " << res << std::endl;
       return result;
     }
 

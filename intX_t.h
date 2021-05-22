@@ -65,6 +65,17 @@ class IntX_t
       return ss.str( );
     }
 
+    // Encode/Decode
+    TYPE GetEncodedValue( ) const
+    {
+      return m_Value;
+    }
+
+    void SetEncodedValue( const TYPE & value_ )
+    {
+      m_Value = value_;
+    }
+
   protected:
 
   private:
