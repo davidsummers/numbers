@@ -169,5 +169,22 @@ int main( )
     }
   }
 
+  {
+    Int16_t x = 5;
+    Int16_t y = 10;
+    Int16_t z = x * y;
+
+    std::cout << x << " * " << y << " = " << z << std::endl;
+  }
+
+  {
+    std::cout << "Testing Uncertain 5 * 10" << std::endl;
+    Int16u_t x = 5;
+    Int16u_t y = 10;
+    Int16u_t z = x * y;
+
+    std::cout << x << " * " << y << " = " << z << std::endl;
+  }
+
   return 0;
 }

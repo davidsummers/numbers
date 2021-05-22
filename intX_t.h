@@ -13,8 +13,10 @@ class IntX_t
 {
   public:
 
+    // Definitions
     static constexpr const TYPE INF = 1 << ( ( sizeof( TYPE ) * 8 ) - 1 );
 
+    // Constructors
     constexpr IntX_t( )
     {
     }
@@ -24,6 +26,29 @@ class IntX_t
     {
     }
 
+    // Special numbers
+    void SetInfinity( )
+    {
+      m_Value = IntX_t< TYPE >::INF;
+    }
+
+    void SetMin( )
+    {
+      m_Value = IntX_t< TYPE >::INF + 1;
+    }
+
+    void SetMax( )
+    {
+      m_Value = - ( IntX_t< TYPE >::INF + 1 );
+    }
+
+    // Binary operators
+    IntX_t< TYPE > operator *( const IntX_t< TYPE > rhs_ )
+    {
+      return m_Value * rhs_.m_Value;
+    }
+
+    // Conversion to string output.
     std::string ToString( ) const
     {
       std::stringstream ss;
@@ -77,22 +102,30 @@ namespace std
 
       static constexpr IntX_t< TYPE > infinity( )
       {
-        return IntX_t< TYPE >::INF;
+        IntX_t< TYPE > value;
+        value.SetInfinity( );
+        return value;
       }
 
       static constexpr IntX_t< TYPE > lowest( )
       {
-        return IntX_t< TYPE >::INF + 1;
+        IntX_t< TYPE > value;
+        value.SetMin( );
+        return value;
       }
 
       static constexpr IntX_t< TYPE > min( )
       {
-        return IntX_t< TYPE >::INF + 1;
+        IntX_t< TYPE > value;
+        value.SetMin( );
+        return value;
       }
 
       static constexpr IntX_t< TYPE > max( )
       {
-        return -( IntX_t< TYPE >::INF + 1 );
+        IntX_t< TYPE > value;
+        value.SetMax( );
+        return value;
       }
   };
 }
