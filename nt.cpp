@@ -80,5 +80,21 @@ int main( )
     std::cout << "Int16u_t: (10)=" << x << " * (30000)=" << y << " = " << z << std::endl;
   }
 
+  {
+    Int16u_t x = 63;
+    Int16u_t y = 2;
+    Int16u_t z = x / y;
+
+    std::cout << "Int16u_t: (63)=" << x << " / (2)=" << y << " = " << z << std::endl;
+  }
+
+  {
+    Int16u_t x = 50;
+    Int16u_t y = 10;
+    Int16u_t z = x / y;
+
+    std::cout << "Int16u_t: (50)=" << x << " / (10)=" << y << " = " << z << std::endl;
+  }
+
   return 0;
 }

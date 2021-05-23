@@ -75,6 +75,16 @@ class IntXu_t
       SetEncodedValue( - ( IntXu_t< TYPE >::INF + 2 ) );
     }
 
+    void SetUncertain( const bool uncertain_ = true )
+    {
+      m_Value = ( m_Value & ( -1 << 1 ) ) | uncertain_;
+    }
+
+    bool GetUncertain( ) const
+    {
+      return m_Value & 1;
+    }
+
     // Conversion operators
     explicit operator TYPE( ) const
     {
@@ -85,11 +95,22 @@ class IntXu_t
     // Binary operators
     IntXu_t< TYPE > operator *( const IntXu_t< TYPE > rhs_ )
     {
-      const TYPE value = static_cast< TYPE >( *this );
-      const TYPE rhs   = static_cast< TYPE >( rhs_ );
-      TYPE result = value * rhs;
+      const TYPE lhs = static_cast< TYPE >( *this );
+      const TYPE rhs = static_cast< TYPE >( rhs_ );
+      TYPE result = lhs * rhs;
       IntXu_t res( result );
-      return result;
+      res.SetUncertain( GetUncertain( ) || rhs_.GetUncertain( ) );
+      return res;
+    }
+
+    IntXu_t< TYPE > operator /( const IntXu_t< TYPE > rhs_ )
+    {
+      const TYPE lhs = static_cast< TYPE >( *this );
+      const TYPE rhs = static_cast< TYPE >( rhs_ );
+      TYPE result = lhs / rhs;
+      IntXu_t res( result );
+      res.SetUncertain( ( lhs % rhs ) != 0 );
+      return res;
     }
 
     // Conversion to string output.
