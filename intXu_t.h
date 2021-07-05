@@ -8,7 +8,7 @@
 /*
  * S NN U
  * 0 00 0 = 0
- * 0 00 1 = 0...
+ * 0 00 1 = 0... ( between 0 and 1 )
  * 0 01 0 = 1
  * 0 01 1 = 1...
  * 0 10 0 = 2
@@ -22,7 +22,7 @@
  * 1 10 0 = -2
  * 1 10 1 = -1...
  * 1 11 0 = -1
- * 1 11 1 = -0...
+ * 1 11 1 = -0... ( between -1 and 0 )
  */
 
 #include <cstdint>
@@ -35,8 +35,10 @@ class IntXu_t
 {
   public:
 
+    using Utype = TYPE;
+
     // Definitions.
-    static constexpr const TYPE INF = 1 << ( ( sizeof( TYPE ) * 8 ) - 1 );
+    static constexpr const TYPE INF = 1ull << ( ( sizeof( TYPE ) * 8 ) - 1 );
 
     // Constructors.
     constexpr IntXu_t( )
@@ -90,6 +92,11 @@ class IntXu_t
     {
       TYPE value = m_Value >> 1;
       return value;
+    }
+
+    operator uint64_t( )
+    {
+      return m_Value >> 1;
     }
 
     // Binary operators
@@ -199,6 +206,8 @@ namespace std
     public:
 
       static constexpr const bool has_infinity = true;
+
+      static constexpr const bool is_signed = true;
 
       static constexpr const bool is_specialized = true;
 
