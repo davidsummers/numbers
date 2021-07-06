@@ -2,7 +2,7 @@
 #include "intXu_t.h"
 
 template< typename TYPE >
-void test( const std::string &nameOfType_ )
+void test( )
 {
   using utype = typename TYPE::Utype;
   uint64_t midType = (utype) std::numeric_limits< TYPE >::max( );
@@ -24,7 +24,7 @@ void test( const std::string &nameOfType_ )
   TYPE myVal;
 
   std::cout << "======" << std::endl;
-  std::cout << nameOfType_ << std::endl;
+  std::cout << myVal.Name( ) << std::endl;
   std::cout << "======" << std::endl;
 
   std::cout << "Size (bits): " << sizeof( TYPE ) * 8 << std::endl;
@@ -72,27 +72,29 @@ void test( const std::string &nameOfType_ )
   }
 }
 
+
 int main( )
 {
-  test< Int8_t >( "Int8_t" );
+  test< Int8_t >( );
 
-  test< Int16_t >( "Int16_t" );
+  test< Int16_t >( );
 
-  test< Int32_t >( "Int32_t" );
+  test< Int32_t >( );
 
-  test< Int64_t >( "Int64_t" );
+  test< Int64_t >( );
 
-  test< Int8u_t >( "Int8u_t" );
+  test< Int8u_t >( );
 
-  test< Int16u_t >( "Int16u_t" );
+  test< Int16u_t >( );
 
-  test< Int32u_t >( "Int32u_t" );
+  test< Int32u_t >( );
 
-  test< Int64u_t >( "Int64u_t" );
+  test< Int64u_t >( );
 
   std::cout << "===============" << std::endl;
   std::cout << "= Now do math =" << std::endl;
   std::cout << "===============" << std::endl;
+
 
   {
     Int16_t x = 5;

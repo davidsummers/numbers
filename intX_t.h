@@ -97,6 +97,29 @@ class IntX_t
       m_Value = value_;
     }
 
+    const char *Name( )
+    {
+      if constexpr ( sizeof( Stype ) == 1 )
+      {
+        return "Int8_t";
+      }
+      else if constexpr ( sizeof( Stype ) == 2 )
+      {
+        return "Int16_t";
+      }
+      else if constexpr ( sizeof( Stype ) == 4 )
+      {
+        return "Int32_t";
+      }
+      else if constexpr ( sizeof( Stype ) == 8 )
+      {
+        return "Int64_t";
+      }
+
+      // FIXME - static_assert( false, "Unknown IntX_t type." );
+      return "Unknown IntX_t type";
+    }
+
   protected:
 
   private:

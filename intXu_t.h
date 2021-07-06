@@ -79,7 +79,7 @@ class IntXu_t
 
     void SetUncertain( const bool uncertain_ = true )
     {
-      m_Value = ( m_Value & ( -1 << 1 ) ) | uncertain_;
+      m_Value = ( m_Value & ( ~0ull << 1 ) ) | uncertain_;
     }
 
     bool GetUncertain( ) const
@@ -172,6 +172,29 @@ class IntXu_t
     void SetEncodedValue( const TYPE & value_ )
     {
       m_Value = value_;
+    }
+
+    const char *Name( )
+    {
+      if constexpr ( sizeof( Utype ) == 1 )
+      {
+        return "Int8u_t";
+      }
+      else if constexpr ( sizeof( Utype ) == 2 )
+      {
+        return "Int16u_t";
+      }
+      else if constexpr ( sizeof( Utype ) == 4 )
+      {
+        return "Int32u_t";
+      }
+      else if constexpr ( sizeof( Utype ) == 8 )
+      {
+        return "Int64u_t";
+      }
+
+      // FIXME - static_assert( false, "Unknown IntX_t type." );
+      return "Unknown IntXu_t type";
     }
 
   protected:
