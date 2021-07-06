@@ -165,7 +165,7 @@ int main( )
   test_mul< Int8u_t  >(  "7",    "10",    "70" );
 
   test_mul< Int16u_t >(  "5",    "10",    "50" );
-  test_mul< Int16u_t >( "10", "30000", "16383..." );
+  test_mul< Int16u_t >(  "3", "16000", "16383..." );
 
   test_div< Int16u_t >( "63",     "2",    "31..." );
   test_div< Int16u_t >( "50",    "10",     "5" );

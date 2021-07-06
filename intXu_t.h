@@ -105,13 +105,23 @@ class IntXu_t
     {
       const TYPE lhs = static_cast< TYPE >( *this );
       const TYPE rhs = static_cast< TYPE >( rhs_ );
-      TYPE result = lhs * rhs;
+      int64_t result = lhs * rhs;
+      int64_t min = std::numeric_limits< IntXu_t< TYPE > >::min( );
+      int64_t max = std::numeric_limits< IntXu_t< TYPE > >::max( );
+      bool overUnderFlow = false;
+      if ( result < min )
+      {
+        result = min;
+        overUnderFlow = true;
+      }
+      if ( result > max )
+      {
+        result = result > max ? max : result;
+        overUnderFlow = true;
+      }
       IntXu_t res( result );
-      TYPE min = std::numeric_limits< IntXu_t< TYPE > >::min( );
-      TYPE max = std::numeric_limits< IntXu_t< TYPE > >::max( );
-      res.SetUncertain( GetUncertain( ) || rhs_.GetUncertain( ) ||
-                        result < min ||
-                        result > max );
+      std::cout << "Res = " << (int64_t) result << ", LHS = " << (int64_t) lhs << ", RHS = " << (int64_t) rhs << std::endl;
+      res.SetUncertain( GetUncertain( ) || rhs_.GetUncertain( ) || overUnderFlow );
       return res;
     }
 
