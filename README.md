@@ -21,7 +21,7 @@ At the moment, the code only supports integers, but in the future I will be
 expanding it to support floating point as well.
 
 I intend to take Dr. Gustafson's "posit" floating point type and add the
-"Uncertain" but to the end of it.
+"Uncertain" bit to the end of it.
 
 (I don't understand why he dropped it in going from his Type I UNUMs to 
 Type III (posit) UNUMs.)
@@ -110,9 +110,6 @@ Y == INF (true, although we can't represent +/- INF, just INF)
 A future possibility would be to make this number NAN and
 then 2^N - 1 = +INF and -2^N + 1 = -INF.
 
-While these changes reduce the number of representable numbers, it allows
-us to do mathematical computations with mathematically correct results.
-
 Code
 ====
 
@@ -122,10 +119,20 @@ integers but with the INF value.
 The IntXu_t types (Int8u_t, Int16u_t, Int32u_t, Int64u_t) implement types
 that have the "Uncertain" bit as the least significant bit of the number.
 
-The IntXu_t types also don't wrap around when numbers are computed that are
-higher than the highest exactly representable number.
+
+Summary
+=======
+
+Note: The IntXu_t types don't wrap around when numbers are computed that are
+higher than the highest or lower then than the lowest exactly representable
+number.
 
 For instance (Int16u_t):
 
-3 * 16000 = 16383... (higher than 16383 but less than Infinity)
+3 * 16000 = 16383... (higher than the maximum possible representation of 16383
+but less than Infinity)
+
+While these changes reduce the number of representable numbers, they basically
+extend the existing C++ types in to better types that give more "mathematically"
+correct results than the normal C++ types.
 
