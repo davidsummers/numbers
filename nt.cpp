@@ -73,6 +73,69 @@ void test( )
 }
 
 
+template< typename type >
+type Str2Num( const std::string &str_ ) // can be called with a 'char*' argument as well
+{
+    int64_t num;
+    std::istringstream( str_ ) >> num;
+    return num;
+}
+
+template< typename TYPE >
+void test_add( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
+{
+  TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
+  TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
+  TYPE res = lhs + rhs;
+
+  std::cout << "===========" << std::endl;
+  std::cout << res.Name( ) << " -> Str: " << lhs_ << " + " << rhs_ << " = " << res_ << std::endl;
+  std::cout << res.Name( ) << " -> Num: " << lhs  << " + " << rhs  << " = " << res  << std::endl;
+  std::cout << "===========" << std::endl;
+}
+
+
+template< typename TYPE >
+void test_sub( const std::string &lhs_, const std::string &rhs_, const std::string & res_ )
+{
+  TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
+  TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
+  TYPE res = lhs - rhs;
+
+  std::cout << "===========" << std::endl;
+  std::cout << res.Name( ) << " -> Str: " << lhs_ << " - " << rhs_ << " = " << res_ << std::endl;
+  std::cout << res.Name( ) << " -> Num: " << lhs  << " - " << rhs  << " = " << res  << std::endl;
+  std::cout << "===========" << std::endl;
+}
+
+
+template< typename TYPE >
+void test_mul( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
+{
+  TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
+  TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
+  TYPE res = lhs * rhs;
+
+  std::cout << "===========" << std::endl;
+  std::cout << res.Name( ) << " -> Str: " << lhs_ << " * " << rhs_ << " = " << res_ << std::endl;
+  std::cout << res.Name( ) << " -> Num: " << lhs  << " * " << rhs  << " = " << res  << std::endl;
+  std::cout << "===========" << std::endl;
+}
+
+template< typename TYPE >
+void test_div( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
+{
+  TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
+  TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
+  TYPE res = lhs / rhs;
+
+  std::cout << "===========" << std::endl;
+  std::cout << res.Name( ) << " -> Str: " << lhs_ << " / " << rhs_ << " = " << res_ << std::endl;
+  std::cout << res.Name( ) << " -> Num: " << lhs  << " / " << rhs  << " = " << res  << std::endl;
+  std::cout << "===========" << std::endl;
+}
+
+
 int main( )
 {
   test< Int8_t >( );
@@ -95,46 +158,17 @@ int main( )
   std::cout << "= Now do math =" << std::endl;
   std::cout << "===============" << std::endl;
 
+  test_mul< Int8_t   >(  "5",    "10",    "50" );
+  test_mul< Int8_t   >(  "7",    "10",    "70" );
 
-  {
-    Int16_t x = 5;
-    Int16_t y = 10;
-    Int16_t z = x * y;
+  test_mul< Int8u_t  >(  "5",    "10",    "50" );
+  test_mul< Int8u_t  >(  "7",    "10",    "70" );
 
-    std::cout << "Int16_t: (5)" << x << " * (10)" << y << " = " << z << std::endl;
-  }
+  test_mul< Int16u_t >(  "5",    "10",    "50" );
+  test_mul< Int16u_t >( "10", "30000", "16383..." );
 
-  {
-    Int16u_t x = 5;
-    Int16u_t y = 10;
-    Int16u_t z = x * y;
-
-    std::cout << "Int16u_t: (5)" << x << " * (10)" << y << " = " << z << std::endl;
-  }
-
-  {
-    Int16u_t x = 10;
-    Int16u_t y = 30000;
-    Int16u_t z = x * y;
-
-    std::cout << "Int16u_t: (10)=" << x << " * (30000)=" << y << " = " << z << std::endl;
-  }
-
-  {
-    Int16u_t x = 63;
-    Int16u_t y = 2;
-    Int16u_t z = x / y;
-
-    std::cout << "Int16u_t: (63)=" << x << " / (2)=" << y << " = " << z << std::endl;
-  }
-
-  {
-    Int16u_t x = 50;
-    Int16u_t y = 10;
-    Int16u_t z = x / y;
-
-    std::cout << "Int16u_t: (50)=" << x << " / (10)=" << y << " = " << z << std::endl;
-  }
+  test_div< Int16u_t >( "63",     "2",    "31..." );
+  test_div< Int16u_t >( "50",    "10",     "5" );
 
   return 0;
 }

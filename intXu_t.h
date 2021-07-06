@@ -35,6 +35,7 @@ class IntXu_t
 {
   public:
 
+    using Otype = TYPE;
     using Utype = TYPE;
 
     // Definitions.
@@ -106,7 +107,11 @@ class IntXu_t
       const TYPE rhs = static_cast< TYPE >( rhs_ );
       TYPE result = lhs * rhs;
       IntXu_t res( result );
-      res.SetUncertain( GetUncertain( ) || rhs_.GetUncertain( ) );
+      TYPE min = std::numeric_limits< IntXu_t< TYPE > >::min( );
+      TYPE max = std::numeric_limits< IntXu_t< TYPE > >::max( );
+      res.SetUncertain( GetUncertain( ) || rhs_.GetUncertain( ) ||
+                        result < min ||
+                        result > max );
       return res;
     }
 

@@ -8,24 +8,24 @@
 #include <limits>
 #include <sstream>
 
-template< typename STYPE, typename UTYPE >
+template< typename OTYPE, typename UTYPE >
 class IntX_t
 {
   public:
 
     // Types
-    using Stype = STYPE;
+    using Otype = OTYPE;
     using Utype = UTYPE;
 
     // Definitions
-    static constexpr const Stype INF = 1ULL << ( ( sizeof( Stype ) * 8 ) - 1 );
+    static constexpr const Otype INF = 1ULL << ( ( sizeof( Otype ) * 8 ) - 1 );
 
     // Constructors
     constexpr IntX_t( )
     {
     }
 
-    constexpr IntX_t( const Stype value_ )
+    constexpr IntX_t( const Otype value_ )
       : m_Value( value_ )
     {
     }
@@ -33,32 +33,32 @@ class IntX_t
     // Special numbers
     void SetInfinity( )
     {
-      m_Value = IntX_t< Stype, Utype >::INF;
+      m_Value = IntX_t< Otype, Utype >::INF;
     }
 
     void SetMin( )
     {
-      m_Value = IntX_t< Stype, Utype >::INF + 1;
+      m_Value = IntX_t< Otype, Utype >::INF + 1;
     }
 
     void SetMax( )
     {
-      m_Value = - ( IntX_t< Stype, Utype >::INF + 1 );
+      m_Value = - ( IntX_t< Otype, Utype >::INF + 1 );
     }
 
     // Binary operators
-    IntX_t< Stype, Utype > operator -( const IntX_t< Stype, Utype > rhs_ )
+    IntX_t< Otype, Utype > operator -( const IntX_t< Otype, Utype > rhs_ )
     {
       return m_Value - rhs_.m_Value;
     }
 
-    IntX_t< Stype, Utype > operator *( const IntX_t< Stype, Utype > rhs_ )
+    IntX_t< Otype, Utype > operator *( const IntX_t< Otype, Utype > rhs_ )
     {
       return m_Value * rhs_.m_Value;
     }
 
-    // Conversion to Stype
-    explicit operator Stype( )
+    // Conversion to Otype
+    explicit operator Otype( )
     {
       return m_Value;
     }
@@ -87,31 +87,31 @@ class IntX_t
     }
 
     // Encode/Decode
-    Stype GetEncodedValue( ) const
+    Otype GetEncodedValue( ) const
     {
       return m_Value;
     }
 
-    void SetEncodedValue( const Stype & value_ )
+    void SetEncodedValue( const Otype & value_ )
     {
       m_Value = value_;
     }
 
     const char *Name( )
     {
-      if constexpr ( sizeof( Stype ) == 1 )
+      if constexpr ( sizeof( Otype ) == 1 )
       {
         return "Int8_t";
       }
-      else if constexpr ( sizeof( Stype ) == 2 )
+      else if constexpr ( sizeof( Otype ) == 2 )
       {
         return "Int16_t";
       }
-      else if constexpr ( sizeof( Stype ) == 4 )
+      else if constexpr ( sizeof( Otype ) == 4 )
       {
         return "Int32_t";
       }
-      else if constexpr ( sizeof( Stype ) == 8 )
+      else if constexpr ( sizeof( Otype ) == 8 )
       {
         return "Int64_t";
       }
@@ -124,7 +124,7 @@ class IntX_t
 
   private:
 
-    Stype m_Value = 0;
+    Otype m_Value = 0;
 };
 
 
@@ -144,8 +144,8 @@ std::ostream &operator <<( std::ostream &s_, const IntX_t< TYPE, UTYPE > &value_
 
 namespace std
 {
-  template < typename STYPE, typename UTYPE >
-  class numeric_limits< IntX_t< STYPE, UTYPE > >
+  template < typename Otype, typename UTYPE >
+  class numeric_limits< IntX_t< Otype, UTYPE > >
   {
     public:
 
@@ -157,30 +157,30 @@ namespace std
 
       static constexpr const bool is_exact = true;
 
-      static constexpr IntX_t< STYPE, UTYPE > infinity( )
+      static constexpr IntX_t< Otype, UTYPE > infinity( )
       {
-        IntX_t< STYPE, UTYPE > value;
+        IntX_t< Otype, UTYPE > value;
         value.SetInfinity( );
         return value;
       }
 
-      static constexpr IntX_t< STYPE, UTYPE > lowest( )
+      static constexpr IntX_t< Otype, UTYPE > lowest( )
       {
-        IntX_t< STYPE, UTYPE > value;
+        IntX_t< Otype, UTYPE > value;
         value.SetMin( );
         return value;
       }
 
-      static constexpr IntX_t< STYPE, UTYPE > min( )
+      static constexpr IntX_t< Otype, UTYPE > min( )
       {
-        IntX_t< STYPE, UTYPE > value;
+        IntX_t< Otype, UTYPE > value;
         value.SetMin( );
         return value;
       }
 
-      static constexpr IntX_t< STYPE, UTYPE > max( )
+      static constexpr IntX_t< Otype, UTYPE > max( )
       {
-        IntX_t< STYPE, UTYPE > value;
+        IntX_t< Otype, UTYPE > value;
         value.SetMax( );
         return value;
       }
