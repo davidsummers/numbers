@@ -3,12 +3,14 @@ Numbers
 
 Surprisingly, computers don't do very well at computing arithmetic.
 
-They have limited precision and can't decide what the correct result is when
+They have limited precision and can't give a correct mathematical answer when
 the result falls between the numbers that can be represented by the limited
 precision.
 
 In "The End of Error", Dr. John L. Gustafson presents some interesting ways
 this can be improved.
+
+This project intends to explore his solutions.
 
 One way is to use one bit (the least significant bit) of the number for an
 "Uncertain" bit which indicates that the number is not exactly the number
@@ -22,7 +24,7 @@ I intend to take Dr. Gustafson's "posit" floating point type and add the
 "Uncertain" but to the end of it.
 
 (I don't understand why he dropped it in going from his Type I UNUMs to 
-Type III (post) UNUMs.)
+Type III (posit) UNUMs.)
 
 An integer example
 ==================
@@ -31,7 +33,7 @@ In integer arithmetic:
 
 63 / 2 = 31 (false)
 
-With the "Uncertain bit", we can correctly represent this as
+With the "Uncertain" bit, we can correctly represent this as
 
 63 / 2 = 31... (true)
 
