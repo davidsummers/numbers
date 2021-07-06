@@ -62,8 +62,11 @@ However, if you try taking the negative of that number, the result is still -128
 which is an incorrect mathematical result.
 
 For example, for an 8-bit signed number ( Sign + N = 7 ) bits:
+
 X = -128
+
 Y = -X
+
 Y == 128 (false) (it still equals -128)
 
 Another way of thinking of this is:
@@ -72,6 +75,7 @@ How can a computer represent a number that is outside the +/- 2^N bits for that
 number?  It can't.
 
  2^7 = max of  127
+
 -2^6 = min of -127
 
 So, let's make this special number the INF (Infinity) value instead.
@@ -79,9 +83,13 @@ So, let's make this special number the INF (Infinity) value instead.
 So for example, a 2-bit signed number would have these possible values.
 
 S N
+
 0 0 = 0
+
 0 1 = 1
+
 1 0 = INF
+
 1 1 = -1
 
 This is easily expandable to any number of bits.
@@ -94,7 +102,9 @@ Or you could think of it as NAN (Not a Number).
 Now when we have:
 
 X = INF
+
 Y = -X
+
 Y == INF (true, although we can't represent +/- INF, just INF)
 
 A future possibility would be to make this number NAN and
