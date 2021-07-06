@@ -76,7 +76,7 @@ number?  It can't.
 
  2^7 = max of  127
 
--2^6 = min of -127
+-2^7 = min of -127
 
 So, let's make this special number the INF (Infinity) value instead.
 
@@ -108,7 +108,7 @@ Y = -X
 Y == INF (true, although we can't represent +/- INF, just INF)
 
 A future possibility would be to make this number NAN and
-the 2^N - 1 = +INF and -2^N + 1 as -INF.
+then 2^N - 1 = +INF and -2^N + 1 = -INF.
 
 While these changes reduce the number of representable numbers, it allows
 us to do mathematical computations with mathematically correct results.
