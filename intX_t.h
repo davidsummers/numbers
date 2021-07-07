@@ -184,6 +184,8 @@ namespace std
 
       static constexpr const bool is_exact = true;
 
+      static constexpr const bool is_modulo = true;
+
       static constexpr IntX_t< Otype, UTYPE > infinity( )
       {
         IntX_t< Otype, UTYPE > value;

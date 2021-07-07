@@ -34,6 +34,8 @@ void test( )
 
   std::cout << "Is Exact: " << std::numeric_limits< TYPE >::is_exact << std::endl;
 
+  std::cout << "Modulo: " << std::numeric_limits< TYPE >::is_modulo << std::endl;
+
   std::cout << "Has Infinity: " << std::numeric_limits< TYPE >::has_infinity << std::endl;
 
   std::cout << "Infinity: " << std::numeric_limits< TYPE >::infinity( ) << std::endl;

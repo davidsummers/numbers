@@ -301,6 +301,8 @@ namespace std
 
       static constexpr const bool is_exact = false;
 
+      static constexpr const bool is_modulo = false;
+
       static constexpr IntXu_t< TYPE > infinity( )
       {
         IntXu_t< TYPE > value;
