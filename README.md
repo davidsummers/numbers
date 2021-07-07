@@ -119,7 +119,13 @@ The IntXu_t types (Int8u_t, Int16u_t, Int32u_t, Int64u_t) implement types
 that have the "Uncertain" bit as the least significant bit of the number.
 
 Note: They *don't* do modulo arithmetic but will max out at number higher than
-the highest number but lower than infinity or lower than the lowest number but higher than negative infinity.
+the highest number but lower than infinity or lower than the lowest number but
+higher than negative infinity.
+
+For instance (Int16u_t):
+
+3 * 16000 = 16383... (higher than the maximum possible representation of 16383
+but less than Infinity)
 
 At the moment, the code only supports integers, but in the future I will be
 expanding it to support floating point as well.
@@ -133,15 +139,6 @@ Type III (posit) UNUMs.)
 
 Summary
 =======
-
-Note: The IntXu_t types don't wrap around when numbers are computed that are
-higher than the highest or lower then than the lowest exactly representable
-number.
-
-For instance (Int16u_t):
-
-3 * 16000 = 16383... (higher than the maximum possible representation of 16383
-but less than Infinity)
 
 While these changes reduce the number of representable numbers, they basically
 extend the existing C++ types in to better types that give more "mathematically"
