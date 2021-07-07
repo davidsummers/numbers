@@ -62,6 +62,30 @@ class IntXu_t
       }
     }
 
+    explicit IntXu_t( const char *str_ )
+    {
+      std::string str = str_ == nullptr ? "" : str_;
+
+      if ( str == "INF" )
+      {
+        m_Value = INF;
+        return;
+      }
+
+      std::stringstream ss( str );
+      int64_t value;
+      ss >> value;
+
+      m_Value = value * 2;
+
+      std::size_t pos = str.find( "..." );
+
+      if ( pos != 0 && pos != std::string::npos )
+      {
+        SetUncertain( );
+      }
+    }
+
     // Special numbers
     void SetInfinity( )
     {
@@ -101,7 +125,7 @@ class IntXu_t
     }
 
     // Binary operators
-    IntXu_t< TYPE > operator *( const IntXu_t< TYPE > rhs_ )
+    IntXu_t< TYPE > operator *( const IntXu_t< TYPE > rhs_ ) const
     {
       const TYPE lhs = static_cast< TYPE >( *this );
       const TYPE rhs = static_cast< TYPE >( rhs_ );
@@ -125,7 +149,7 @@ class IntXu_t
       return res;
     }
 
-    IntXu_t< TYPE > operator /( const IntXu_t< TYPE > rhs_ )
+    IntXu_t< TYPE > operator /( const IntXu_t< TYPE > rhs_ ) const
     {
       const TYPE lhs = static_cast< TYPE >( *this );
       const TYPE rhs = static_cast< TYPE >( rhs_ );
@@ -224,6 +248,33 @@ using Int16u_t = IntXu_t< int16_t >;
 using Int32u_t = IntXu_t< int32_t >;
 using Int64u_t = IntXu_t< int64_t >;
 
+//////////////////////////////////////////////////////////////////////////
+Int8u_t operator "" _i8u( const char *str_, const std::size_t /* size_ */ )
+{
+  Int8u_t val( str_ );
+  return val;
+}
+
+///////////////////////////////////////////////////////////////////////////
+Int16u_t operator "" _i16u( const char *str_, const std::size_t /* size_ */ )
+{
+  Int16u_t val( str_ );
+  return val;
+}
+
+///////////////////////////////////////////////////////////////////////////
+Int32u_t operator "" _i32u( const char *str_, const std::size_t /* size_ */ )
+{
+  Int32u_t val( str_ );
+  return val;
+}
+
+///////////////////////////////////////////////////////////////////////////
+Int64u_t operator "" _i64u( const char *str_, const std::size_t /* size_ */ )
+{
+  Int64u_t val( str_ );
+  return val;
+}
 
 template< typename TYPE >
 std::ostream &operator <<( std::ostream &s_, const IntXu_t< TYPE > &value_ )

@@ -1,0 +1,9 @@
+TODO
+====
+
+See if there is any way to have the C++ literals parse the "..." without
+having to put it inside double quotes.
+
+(I think not, I think the C++ parser tokenizes things before handing it to
+the literal processor)
+

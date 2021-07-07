@@ -47,22 +47,22 @@ class IntX_t
     }
 
     // Binary operators
-    IntX_t< Otype, Utype > operator +( const IntX_t< Otype, Utype > rhs_ )
+    IntX_t< Otype, Utype > operator +( const IntX_t< Otype, Utype > rhs_ ) const
     {
       return m_Value + rhs_.m_Value;
     }
 
-    IntX_t< Otype, Utype > operator -( const IntX_t< Otype, Utype > rhs_ )
+    IntX_t< Otype, Utype > operator -( const IntX_t< Otype, Utype > rhs_ ) const
     {
       return m_Value - rhs_.m_Value;
     }
 
-    IntX_t< Otype, Utype > operator *( const IntX_t< Otype, Utype > rhs_ )
+    IntX_t< Otype, Utype > operator *( const IntX_t< Otype, Utype > rhs_ ) const
     {
       return m_Value * rhs_.m_Value;
     }
 
-    IntX_t< Otype, Utype > operator /( const IntX_t< Otype, Utype > rhs_ )
+    IntX_t< Otype, Utype > operator /( const IntX_t< Otype, Utype > rhs_ ) const
     {
       return m_Value / rhs_.m_Value;
     }
@@ -144,6 +144,7 @@ using Int32_t = IntX_t< int32_t, uint32_t >;
 using Int64_t = IntX_t< int64_t, uint64_t >;
 
 
+//////////////////////////////////////////
 template < typename TYPE, typename UTYPE >
 std::ostream &operator <<( std::ostream &s_, const IntX_t< TYPE, UTYPE > &value_ )
 {
