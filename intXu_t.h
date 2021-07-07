@@ -219,7 +219,7 @@ class IntXu_t
                      sizeof( Otype ) == 2 ||
                      sizeof( Otype ) == 4 ||
                      sizeof( Otype ) == 8,
-                     "Invalid size for IntX_t type." );
+                     "Invalid size for IntXu_t type." );
 
       if constexpr ( sizeof( Utype ) == 1 )
       {
@@ -239,7 +239,7 @@ class IntXu_t
       }
       else
       {
-        return "Unknown size for IntX_t type";
+        return "Unknown size for IntXu_t type";
       }
     }
 
