@@ -215,6 +215,12 @@ class IntXu_t
 
     const char *Name( )
     {
+      static_assert( sizeof( Otype ) == 1 ||
+                     sizeof( Otype ) == 2 ||
+                     sizeof( Otype ) == 4 ||
+                     sizeof( Otype ) == 8,
+                     "Invalid size for IntX_t type." );
+
       if constexpr ( sizeof( Utype ) == 1 )
       {
         return "Int8u_t";
@@ -231,9 +237,10 @@ class IntXu_t
       {
         return "Int64u_t";
       }
-
-      // FIXME - static_assert( false, "Unknown IntX_t type." );
-      return "Unknown IntXu_t type";
+      else
+      {
+        return "Unknown size for IntX_t type";
+      }
     }
 
   protected:
