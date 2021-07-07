@@ -173,6 +173,7 @@ bool test_div( const TYPE &lhs_, const TYPE &rhs_, const TYPE &res_, const char 
   return okStatus; // OK
 }
 
+/////////////////////////
 template< typename TYPE >
 bool test_size( const int expectedSize_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
@@ -193,6 +194,7 @@ bool test_size( const int expectedSize_, const char *file_ = __FILE__, const int
   return okStatus;
 }
 
+/////////////////////////
 template< typename TYPE >
 bool test_is_integer( bool expectedStatus_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
@@ -213,6 +215,7 @@ bool test_is_integer( bool expectedStatus_, const char *file_ = __FILE__, const 
   return okStatus;
 }
 
+/////////////////////////
 template< typename TYPE >
 bool test_is_signed( bool expectedStatus_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
@@ -233,6 +236,7 @@ bool test_is_signed( bool expectedStatus_, const char *file_ = __FILE__, const i
   return okStatus;
 }
 
+/////////////////////////
 template< typename TYPE >
 bool test_is_exact( bool expectedStatus_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
@@ -253,6 +257,7 @@ bool test_is_exact( bool expectedStatus_, const char *file_ = __FILE__, const in
   return okStatus;
 }
 
+/////////////////////////
 template< typename TYPE >
 bool test_is_modulo( bool expectedStatus_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
@@ -273,9 +278,28 @@ bool test_is_modulo( bool expectedStatus_, const char *file_ = __FILE__, const i
   return okStatus;
 }
 
-#if 0
-  std::cout << "Has Infinity: " << std::numeric_limits< TYPE >::has_infinity << std::endl;
+/////////////////////////
+template< typename TYPE >
+bool test_has_infinity( bool expectedStatus_, const char *file_ = __FILE__, const int line_ = __LINE__ )
+{
+  bool status = std::numeric_limits< TYPE >::has_infinity;
+  bool okStatus = status == expectedStatus_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+  TYPE res;
 
+  std::cout << okString << ": test_has_infinity< " << res.Name( ) << " > => " << status;
+
+  if ( !okStatus )
+  {
+    std::cout << " => Expected '" << expectedStatus_ << "', but got '" << status << "' at " << file_ << "(" << line_ << ")";
+  }
+
+  std::cout << std::endl;
+
+  return okStatus;
+}
+
+#if 0
   std::cout << "Infinity: " << std::numeric_limits< TYPE >::infinity( ) << std::endl;
 
   std::cout << "Min: " << std::numeric_limits< TYPE >::min( ) << std::endl;
@@ -287,6 +311,7 @@ bool test_is_modulo( bool expectedStatus_, const char *file_ = __FILE__, const i
   std::cout << "Lowest: " << std::numeric_limits< TYPE >::lowest( ) << std::endl;
 #endif
 
+/////////////
 void Usage( )
 {
   std::cout << "Usage: nt demo | tests" << std::endl;
@@ -334,11 +359,12 @@ int main( int argc_, char **argv_ )
 
   // Int8_t
   {
-    ok &= test_size<       Int8_t >( 8 );
-    ok &= test_is_integer< Int8_t >( true );
-    ok &= test_is_signed<  Int8_t >( true );
-    ok &= test_is_exact<   Int8_t >( true );
-    ok &= test_is_modulo<  Int8_t >( true );
+    ok &= test_size<         Int8_t >( 8 );
+    ok &= test_is_integer<   Int8_t >( true );
+    ok &= test_is_signed<    Int8_t >( true );
+    ok &= test_is_exact<     Int8_t >( true );
+    ok &= test_is_modulo<    Int8_t >( true );
+    ok &= test_has_infinity< Int8_t >( true );
 
     ok &= test_add< Int8_t   >(   -1,          1,      0         );
     ok &= test_add< Int8_t   >(  127,          1,    Int8_t::INF );
@@ -352,38 +378,42 @@ int main( int argc_, char **argv_ )
 
   // Int16_t
   {
-    ok &= test_size<       Int16_t >( 16 );
-    ok &= test_is_integer< Int16_t >( true );
-    ok &= test_is_signed<  Int16_t >( true );
-    ok &= test_is_exact<   Int16_t >( true );
-    ok &= test_is_modulo<  Int16_t >( true );
+    ok &= test_size<         Int16_t >( 16 );
+    ok &= test_is_integer<   Int16_t >( true );
+    ok &= test_is_signed<    Int16_t >( true );
+    ok &= test_is_exact<     Int16_t >( true );
+    ok &= test_is_modulo<    Int16_t >( true );
+    ok &= test_has_infinity< Int16_t >( true );
   }
 
   // Int32_t
   {
-    ok &= test_size<       Int32_t >( 32 );
-    ok &= test_is_integer< Int32_t >( true );
-    ok &= test_is_signed<  Int32_t >( true );
-    ok &= test_is_exact<   Int32_t >( true );
-    ok &= test_is_modulo<  Int32_t >( true );
+    ok &= test_size<         Int32_t >( 32 );
+    ok &= test_is_integer<   Int32_t >( true );
+    ok &= test_is_signed<    Int32_t >( true );
+    ok &= test_is_exact<     Int32_t >( true );
+    ok &= test_is_modulo<    Int32_t >( true );
+    ok &= test_has_infinity< Int32_t >( true );
   }
 
   // Int64_t
   {
-    ok &= test_size<       Int64_t >( 64 );
-    ok &= test_is_integer< Int64_t >( true );
-    ok &= test_is_signed<  Int64_t >( true );
-    ok &= test_is_exact<   Int64_t >( true );
-    ok &= test_is_modulo<  Int64_t >( true );
+    ok &= test_size<         Int64_t >( 64 );
+    ok &= test_is_integer<   Int64_t >( true );
+    ok &= test_is_signed<    Int64_t >( true );
+    ok &= test_is_exact<     Int64_t >( true );
+    ok &= test_is_modulo<    Int64_t >( true );
+    ok &= test_has_infinity< Int64_t >( true );
   }
 
   // Int8u_t
   {
-    ok &= test_size<       Int8u_t >( 8 );
-    ok &= test_is_integer< Int8u_t >( true );
-    ok &= test_is_signed<  Int8u_t >( true );
-    ok &= test_is_exact<   Int8u_t >( false );
-    ok &= test_is_modulo<  Int8u_t >( false );
+    ok &= test_size<         Int8u_t >( 8 );
+    ok &= test_is_integer<   Int8u_t >( true );
+    ok &= test_is_signed<    Int8u_t >( true );
+    ok &= test_is_exact<     Int8u_t >( false );
+    ok &= test_is_modulo<    Int8u_t >( false );
+    ok &= test_has_infinity< Int8u_t >( true );
 
     ok &= test_mul< Int8u_t  >(   "5"_i8u,    "10"_i8u,    "50"_i8u    );
     ok &= test_mul< Int8u_t  >(   "7"_i8u,    "10"_i8u,    "63..."_i8u );
@@ -391,11 +421,12 @@ int main( int argc_, char **argv_ )
 
   // Int16u_t
   {
-    ok &= test_size<       Int16u_t >( 16 );
-    ok &= test_is_integer< Int16u_t >( true );
-    ok &= test_is_signed<  Int16u_t >( true );
-    ok &= test_is_exact<   Int16u_t >( false );
-    ok &= test_is_modulo<  Int16u_t >( false );
+    ok &= test_size<         Int16u_t >( 16 );
+    ok &= test_is_integer<   Int16u_t >( true );
+    ok &= test_is_signed<    Int16u_t >( true );
+    ok &= test_is_exact<     Int16u_t >( false );
+    ok &= test_is_modulo<    Int16u_t >( false );
+    ok &= test_has_infinity< Int16u_t >( true );
 
     ok &= test_mul< Int16u_t >(   "5"_i16u,    "10"_i16u,    "50"_i16u    );
     ok &= test_mul< Int16u_t >(   "3"_i16u, "16000"_i16u, "16383..."_i16u );
@@ -406,20 +437,22 @@ int main( int argc_, char **argv_ )
 
   // Int32u_t
   {
-    ok &= test_size<       Int32u_t >( 32 );
-    ok &= test_is_integer< Int32u_t >( true );
-    ok &= test_is_signed<  Int32u_t >( true );
-    ok &= test_is_exact<   Int32u_t >( false );
-    ok &= test_is_modulo<  Int32u_t >( false );
+    ok &= test_size<         Int32u_t >( 32 );
+    ok &= test_is_integer<   Int32u_t >( true );
+    ok &= test_is_signed<    Int32u_t >( true );
+    ok &= test_is_exact<     Int32u_t >( false );
+    ok &= test_is_modulo<    Int32u_t >( false );
+    ok &= test_has_infinity< Int32u_t >( true );
   }
 
   // Int64u_t
   {
-    ok &= test_size<       Int64u_t >( 64 );
-    ok &= test_is_integer< Int64u_t >( true );
-    ok &= test_is_signed<  Int64u_t >( true );
-    ok &= test_is_exact<   Int64u_t >( false );
-    ok &= test_is_modulo<  Int64u_t >( false );
+    ok &= test_size<         Int64u_t >( 64 );
+    ok &= test_is_integer<   Int64u_t >( true );
+    ok &= test_is_signed<    Int64u_t >( true );
+    ok &= test_is_exact<     Int64u_t >( false );
+    ok &= test_is_modulo<    Int64u_t >( false );
+    ok &= test_has_infinity< Int64u_t >( true );
   }
 
   if ( !ok )
