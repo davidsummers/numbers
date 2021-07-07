@@ -17,15 +17,6 @@ One way is to use one bit (the least significant bit) of the number for an
 represented but falls in the range between this exactly representable number
 and the next exactly representable number.
 
-At the moment, the code only supports integers, but in the future I will be
-expanding it to support floating point as well.
-
-I intend to take Dr. Gustafson's "posit" floating point type and add the
-"Uncertain" bit to the end of it.
-
-(I don't understand why he dropped it in going from his Type I UNUMs to 
-Type III (posit) UNUMs.)
-
 An integer example
 ==================
 
@@ -113,11 +104,31 @@ then 2^N - 1 = +INF and -2^N + 1 = -INF.
 Code
 ====
 
+IntX_t types
+============
+
 The IntX_t types (Int8_t, Int16_t, Int32_t, Int64_t) implement normal
 integers but with the INF value.
 
+Note: They use modulo arithmetic just like normal int and will wrap around.
+
+IntXu_t types
+=============
+
 The IntXu_t types (Int8u_t, Int16u_t, Int32u_t, Int64u_t) implement types
 that have the "Uncertain" bit as the least significant bit of the number.
+
+Note: They *don't* do modulo arithmetic but will max out at number higher than
+the highest number but lower than infinity or lower than the lowest number but higher than negative infinity.
+
+At the moment, the code only supports integers, but in the future I will be
+expanding it to support floating point as well.
+
+I intend to take Dr. Gustafson's "posit" floating point type and add the
+"Uncertain" bit to the end of it.
+
+(I don't understand why he dropped it in going from his Type I UNUMs to 
+Type III (posit) UNUMs.)
 
 
 Summary
