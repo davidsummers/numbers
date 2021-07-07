@@ -109,6 +109,12 @@ class IntX_t
 
     const char *Name( )
     {
+      static_assert( sizeof( Otype ) == 1 ||
+                     sizeof( Otype ) == 2 ||
+                     sizeof( Otype ) == 4 ||
+                     sizeof( Otype ) == 8,
+                     "Invalid size for IntX_t type." );
+
       if constexpr ( sizeof( Otype ) == 1 )
       {
         return "Int8_t";
@@ -125,9 +131,11 @@ class IntX_t
       {
         return "Int64_t";
       }
+      else
+      {
+        return "Unknown size for IntX_t type";
+      }
 
-      // FIXME - static_assert( false, "Unknown IntX_t type." );
-      return "Unknown IntX_t type";
     }
 
   protected:
