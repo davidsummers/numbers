@@ -120,7 +120,7 @@ class IntXu_t
         overUnderFlow = true;
       }
       IntXu_t res( result );
-      std::cout << "Res = " << (int64_t) result << ", LHS = " << (int64_t) lhs << ", RHS = " << (int64_t) rhs << std::endl;
+      // std::cout << "Res = " << (int64_t) result << ", LHS = " << (int64_t) lhs << ", RHS = " << (int64_t) rhs << std::endl;
       res.SetUncertain( GetUncertain( ) || rhs_.GetUncertain( ) || overUnderFlow );
       return res;
     }

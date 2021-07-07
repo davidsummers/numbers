@@ -1,6 +1,7 @@
 #include "intX_t.h"
 #include "intXu_t.h"
 
+/////////////////////////
 template< typename TYPE >
 void test( )
 {
@@ -72,7 +73,7 @@ void test( )
   }
 }
 
-
+/////////////////////////
 template< typename type >
 type Str2Num( const std::string &str_ ) // can be called with a 'char*' argument as well
 {
@@ -81,61 +82,103 @@ type Str2Num( const std::string &str_ ) // can be called with a 'char*' argument
     return num;
 }
 
+/////////////////////////
 template< typename TYPE >
-void test_add( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
+bool test_add( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
 {
   TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
   TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
   TYPE res = lhs + rhs;
 
-  std::cout << "===========" << std::endl;
-  std::cout << res.Name( ) << " -> Str: " << lhs_ << " + " << rhs_ << " = " << res_ << std::endl;
-  std::cout << res.Name( ) << " -> Num: " << lhs  << " + " << rhs  << " = " << res  << std::endl;
-  std::cout << "===========" << std::endl;
+  std::stringstream ss;
+  ss << res;
+
+  bool okStatus = ss.str( ) == res_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+
+  std::cout << okString << ": test_add< " << res.Name( ) << " > => " << lhs_ << " + " << rhs_ << " = " << res_ << std::endl;
+
+  if ( !okStatus )
+  {
+    std::cout << "FAIL: Expected '" << res_ << "', but got " << res << "'" << std::endl;
+  }
+
+  return okStatus; // OK
 }
 
-
+/////////////////////////
 template< typename TYPE >
-void test_sub( const std::string &lhs_, const std::string &rhs_, const std::string & res_ )
+bool test_sub( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
 {
   TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
   TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
   TYPE res = lhs - rhs;
 
-  std::cout << "===========" << std::endl;
-  std::cout << res.Name( ) << " -> Str: " << lhs_ << " - " << rhs_ << " = " << res_ << std::endl;
-  std::cout << res.Name( ) << " -> Num: " << lhs  << " - " << rhs  << " = " << res  << std::endl;
-  std::cout << "===========" << std::endl;
+  std::stringstream ss;
+  ss << res;
+
+  bool okStatus = ss.str( ) == res_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+
+  std::cout << okString << ": test_sub< " << res.Name( ) << " > => " << lhs_ << " - " << rhs_ << " = " << res_ << std::endl;
+
+  if ( !okStatus )
+  {
+    std::cout << "FAIL: Expected '" << res_ << "', but got " << res << "'" << std::endl;
+  }
+
+  return okStatus; // OK
 }
 
-
+/////////////////////////
 template< typename TYPE >
-void test_mul( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
+bool test_mul( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
 {
   TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
   TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
   TYPE res = lhs * rhs;
 
-  std::cout << "===========" << std::endl;
-  std::cout << res.Name( ) << " -> Str: " << lhs_ << " * " << rhs_ << " = " << res_ << std::endl;
-  std::cout << res.Name( ) << " -> Num: " << lhs  << " * " << rhs  << " = " << res  << std::endl;
-  std::cout << "===========" << std::endl;
+  std::stringstream ss;
+  ss << res;
+
+  bool okStatus = ss.str( ) == res_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+
+  std::cout << okString << ": test_mul< " << res.Name( ) << " > => " << lhs_ << " * " << rhs_ << " = " << res_ << std::endl;
+
+  if ( !okStatus )
+  {
+    std::cout << "FAIL: Expected '" << res_ << "', but got " << res << "'" << std::endl;
+  }
+
+  return okStatus; // OK
 }
 
+/////////////////////////
 template< typename TYPE >
-void test_div( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
+bool test_div( const std::string &lhs_, const std::string &rhs_, const std::string &res_ )
 {
   TYPE lhs = Str2Num< typename TYPE::Otype >( lhs_ );
   TYPE rhs = Str2Num< typename TYPE::Otype >( rhs_ );
   TYPE res = lhs / rhs;
 
-  std::cout << "===========" << std::endl;
-  std::cout << res.Name( ) << " -> Str: " << lhs_ << " / " << rhs_ << " = " << res_ << std::endl;
-  std::cout << res.Name( ) << " -> Num: " << lhs  << " / " << rhs  << " = " << res  << std::endl;
-  std::cout << "===========" << std::endl;
+  std::stringstream ss;
+  ss << res;
+
+  bool okStatus = ss.str( ) == res_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+
+  std::cout << okString << ": test_div< " << res.Name( ) << " > => " << lhs_ << " / " << rhs_ << " = " << res_ << std::endl;
+
+  if ( !okStatus )
+  {
+    std::cout << "FAIL: Expected '" << res_ << "', but got " << res << "'" << std::endl;
+  }
+
+  return okStatus; // OK
 }
 
-
+///////////
 int main( )
 {
   test< Int8_t >( );
@@ -158,17 +201,32 @@ int main( )
   std::cout << "= Now do math =" << std::endl;
   std::cout << "===============" << std::endl;
 
-  test_mul< Int8_t   >(  "5",    "10",    "50" );
-  test_mul< Int8_t   >(  "7",    "10",    "70" );
+  bool ok = true;
 
-  test_mul< Int8u_t  >(  "5",    "10",    "50" );
-  test_mul< Int8u_t  >(  "7",    "10",    "70" );
+  ok &= test_add< Int8_t   >(   "-1",    "1",     "0"    );
+  ok &= test_add< Int8_t   >(  "127",    "1",    "INF"   );
+  // ok &= test_add< Int8_t   >(  "INF",    "1",   "-127"   ); // FIXME
 
-  test_mul< Int16u_t >(  "5",    "10",    "50" );
-  test_mul< Int16u_t >(  "3", "16000", "16383..." );
+  ok &= test_sub< Int8_t   >( "-127",    "1",    "INF"   );
 
-  test_div< Int16u_t >( "63",     "2",    "31..." );
-  test_div< Int16u_t >( "50",    "10",     "5" );
+  ok &= test_mul< Int8_t   >(   "5",    "10",    "50"    );
+  ok &= test_mul< Int8_t   >(   "7",    "10",    "70"    );
 
-  return 0;
+  ok &= test_mul< Int8u_t  >(   "5",    "10",    "50"    );
+  ok &= test_mul< Int8u_t  >(   "7",    "10",    "63..." );
+
+  ok &= test_mul< Int16u_t >(   "5",    "10",    "50"    );
+  ok &= test_mul< Int16u_t >(   "3", "16000", "16383..." );
+
+  ok &= test_div< Int16u_t >(  "63",     "2",    "31..." );
+  ok &= test_div< Int16u_t >(  "50",    "10",     "5"    );
+
+  if ( !ok )
+  {
+    std::cout << "ERROR: One or more tests failed." << std::endl;
+  }
+
+  int exitStatus = !ok;  // Return if OK, else 1.
+
+  return exitStatus;
 }

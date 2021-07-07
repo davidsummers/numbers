@@ -47,6 +47,11 @@ class IntX_t
     }
 
     // Binary operators
+    IntX_t< Otype, Utype > operator +( const IntX_t< Otype, Utype > rhs_ )
+    {
+      return m_Value + rhs_.m_Value;
+    }
+
     IntX_t< Otype, Utype > operator -( const IntX_t< Otype, Utype > rhs_ )
     {
       return m_Value - rhs_.m_Value;
@@ -55,6 +60,11 @@ class IntX_t
     IntX_t< Otype, Utype > operator *( const IntX_t< Otype, Utype > rhs_ )
     {
       return m_Value * rhs_.m_Value;
+    }
+
+    IntX_t< Otype, Utype > operator /( const IntX_t< Otype, Utype > rhs_ )
+    {
+      return m_Value / rhs_.m_Value;
     }
 
     // Conversion to Otype
