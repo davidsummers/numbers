@@ -173,32 +173,113 @@ bool test_div( const TYPE &lhs_, const TYPE &rhs_, const TYPE &res_, const char 
   return okStatus; // OK
 }
 
-///////////
-int main( )
+template< typename TYPE >
+bool test_size( const int expectedSize_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
-  test< Int8_t >( );
+  int size = sizeof( TYPE ) * 8;
+  bool okStatus = size == expectedSize_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+  TYPE res;
 
-  test< Int16_t >( );
+  std::cout << okString << ": test_size< " << res.Name( ) << " > => " << size;
 
-  test< Int32_t >( );
+  if ( !okStatus )
+  {
+    std::cout << " => Expected '" << expectedSize_ << "', but got '" << size << "' at '" << file_ << "(" << line_ << ")";
+  }
 
-  test< Int64_t >( );
+  std::cout << std::endl;
 
-  test< Int8u_t >( );
+  return okStatus;
+}
 
-  test< Int16u_t >( );
+template< typename TYPE >
+bool test_is_integer( bool expectedStatus_, const char *file_ = __FILE__, const int line_ = __LINE__ )
+{
+  bool status = std::numeric_limits< TYPE >::is_integer;
+  bool okStatus = status == expectedStatus_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+  TYPE res;
 
-  test< Int32u_t >( );
+  std::cout << okString << ": test_is_integer< " << res.Name( ) << " > => " << status;
 
-  test< Int64u_t >( );
+  if ( !okStatus )
+  {
+    std::cout << " => Expected '" << expectedStatus_ << "', but got '" << status << "' at '" << file_ << "(" << line_ << ")";
+  }
 
-  //////////////
-  std::cout << "===============" << std::endl;
-  std::cout << "= Now do math =" << std::endl;
-  std::cout << "===============" << std::endl;
+  std::cout << std::endl;
+
+  return okStatus;
+}
+
+#if 0
+  std::cout << "Is Signed: " << std::numeric_limits< TYPE >::is_signed << std::endl;
+
+  std::cout << "Is Exact: " << std::numeric_limits< TYPE >::is_exact << std::endl;
+
+  std::cout << "Modulo: " << std::numeric_limits< TYPE >::is_modulo << std::endl;
+
+  std::cout << "Has Infinity: " << std::numeric_limits< TYPE >::has_infinity << std::endl;
+
+  std::cout << "Infinity: " << std::numeric_limits< TYPE >::infinity( ) << std::endl;
+
+  std::cout << "Min: " << std::numeric_limits< TYPE >::min( ) << std::endl;
+
+  // std::cout << "Mid: " << (uint64_t) mid << std::endl;
+
+  std::cout << "Max: " << std::numeric_limits< TYPE >::max( ) << std::endl;
+
+  std::cout << "Lowest: " << std::numeric_limits< TYPE >::lowest( ) << std::endl;
+#endif
+
+void Usage( )
+{
+  std::cout << "Usage: nt demo | tests" << std::endl;
+}
+
+///////////
+int main( int argc_, char **argv_ )
+{
+  if ( argc_ < 2 || argc_ > 2 )
+  {
+    Usage( );
+    return 1;
+  }
+
+  std::string cmd = argv_[ 1 ];
+
+  if ( cmd != "demo" && cmd != "tests" )
+  {
+    Usage( );
+    return 1;
+  }
+
+  if ( cmd == "demo" )
+  {
+    test< Int8_t >( );
+
+    test< Int16_t >( );
+
+    test< Int32_t >( );
+
+    test< Int64_t >( );
+
+    test< Int8u_t >( );
+
+    test< Int16u_t >( );
+
+    test< Int32u_t >( );
+
+    test< Int64u_t >( );
+
+    return 0;
+  }
 
   bool ok = true;
 
+  ok &= test_size< Int8_t >( 8 );
+  ok &= test_is_integer< Int8_t >( true );
   ok &= test_add< Int8_t   >(   -1,          1,      0         );
   ok &= test_add< Int8_t   >(  127,          1,    Int8_t::INF );
   ok &= test_add< Int8_t   >(  Int8_t::INF,  1,   -127         );
@@ -208,14 +289,33 @@ int main( )
   ok &= test_mul< Int8_t   >(   5,    10,    50    );
   ok &= test_mul< Int8_t   >(   7,    10,    70    );
 
+  ok &= test_size< Int16_t >( 16 );
+  ok &= test_is_integer< Int16_t >( true );
+
+  ok &= test_size< Int32_t >( 32 );
+  ok &= test_is_integer< Int32_t >( true );
+
+  ok &= test_size< Int64_t >( 64 );
+  ok &= test_is_integer< Int64_t >( true );
+
+  ok &= test_size< Int8u_t >( 8 );
+  ok &= test_is_integer< Int8u_t >( true );
   ok &= test_mul< Int8u_t  >(   "5"_i8u,    "10"_i8u,    "50"_i8u    );
   ok &= test_mul< Int8u_t  >(   "7"_i8u,    "10"_i8u,    "63..."_i8u );
 
+  ok &= test_size< Int16u_t >( 16 );
+  ok &= test_is_integer< Int16_t >( true );
   ok &= test_mul< Int16u_t >(   "5"_i16u,    "10"_i16u,    "50"_i16u    );
   ok &= test_mul< Int16u_t >(   "3"_i16u, "16000"_i16u, "16383..."_i16u );
 
   ok &= test_div< Int16u_t >(  "63"_i16u,     "2"_i16u,    "31..."_i16u );
   ok &= test_div< Int16u_t >(  "50"_i16u,    "10"_i16u,     "5"_i16u    );
+
+  ok &= test_size< Int32u_t >( 32 );
+  ok &= test_is_integer< Int32u_t >( true );
+
+  ok &= test_size< Int64u_t >( 64 );
+  ok &= test_is_integer< Int64u_t >( true );
 
   if ( !ok )
   {
