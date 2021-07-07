@@ -40,8 +40,8 @@ mathematically, that the resulting number falls between these numbers.
 In this project, I create some C++ classes which begin to attempt to explore
 how to improve the normal computer computation and see if it is worth doing.
 
-Example
-=======
+Representation
+==============
 
 S N U
 
@@ -95,8 +95,8 @@ So, let's make this special number the INF (Infinity) value instead.
 
 So for example, a 2-bit signed number would have these possible values.
 
-Example
-========
+Representation
+==============
 
 S N
 
