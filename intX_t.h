@@ -3,6 +3,14 @@
 // IntX_t
 // Has Infinity.
 
+/*
+ * S N
+ * 0 0 = 0
+ * 0 1 = 1
+ * 1 0 = INF
+ * 1 1 = -1
+ */
+
 #include <cstdint>
 #include <iostream>
 #include <limits>
