@@ -40,6 +40,20 @@ mathematically, that the resulting number falls between these numbers.
 In this project, I create some C++ classes which begin to attempt to explore
 how to improve the normal computer computation and see if it is worth doing.
 
+Example
+=======
+
+S N U
+0 0 0 = 0
+0 0 1 = 0... ( between 0 and 1 )
+0 1 0 = 1
+0 1 1 = 1...
+1 0 0 = INF
+1 0 1 = -1...
+1 1 0 = -1
+1 1 1 = -0... ( between -1 and 0 )
+
+
 
 Incorrect math at the edge
 ==========================
@@ -72,6 +86,9 @@ number?  It can't.
 So, let's make this special number the INF (Infinity) value instead.
 
 So for example, a 2-bit signed number would have these possible values.
+
+Example
+========
 
 S N
 
