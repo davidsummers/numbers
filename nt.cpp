@@ -30,6 +30,8 @@ void test( )
 
   std::cout << "Size (bits): " << sizeof( TYPE ) * 8 << std::endl;
 
+  std::cout << "Is Integer: " << std::numeric_limits< TYPE >::is_integer << std::endl;
+
   std::cout << "Is Signed: " << std::numeric_limits< TYPE >::is_signed << std::endl;
 
   std::cout << "Is Exact: " << std::numeric_limits< TYPE >::is_exact << std::endl;
