@@ -26,7 +26,8 @@ class IntX_t
     using Utype = UTYPE;
 
     // Definitions
-    static constexpr const Otype INF = 1ULL << ( ( sizeof( Otype ) * 8 ) - 1 );
+    static constexpr const Otype shift = ( ( sizeof( Otype ) * 8 ) - 1 );
+    static constexpr const Otype INF = 1ULL << shift;
 
     // Constructors
     constexpr IntX_t( )
@@ -39,22 +40,22 @@ class IntX_t
     }
 
     // Special numbers
-    void SetInfinity( )
+    constexpr void SetInfinity( )
     {
       m_Value = IntX_t< Otype, Utype >::INF;
     }
 
-    void SetMin( )
+    constexpr void SetMin( )
     {
       m_Value = IntX_t< Otype, Utype >::INF + 1;
     }
 
-    void SetMax( )
+    constexpr void SetMax( )
     {
       m_Value = - ( IntX_t< Otype, Utype >::INF + 1 );
     }
 
-    // Binary operators
+    // Math operators
     IntX_t< Otype, Utype > operator +( const IntX_t< Otype, Utype > rhs_ ) const
     {
       return m_Value + rhs_.m_Value;
@@ -73,6 +74,12 @@ class IntX_t
     IntX_t< Otype, Utype > operator /( const IntX_t< Otype, Utype > rhs_ ) const
     {
       return m_Value / rhs_.m_Value;
+    }
+
+    // Comparison operators
+    bool operator ==( const IntX_t< Otype, Utype > &rhs_ ) const
+    {
+      return m_Value == rhs_.m_Value;
     }
 
     // Conversion to Otype
@@ -115,7 +122,7 @@ class IntX_t
       m_Value = value_;
     }
 
-    const char *Name( )
+    constexpr const char *Name( )
     {
       static_assert( sizeof( Otype ) == 1 ||
                      sizeof( Otype ) == 2 ||

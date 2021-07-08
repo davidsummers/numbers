@@ -299,14 +299,57 @@ bool test_has_infinity( bool expectedStatus_, const char *file_ = __FILE__, cons
   return okStatus;
 }
 
+/////////////////////////
+template< typename TYPE >
+bool test_min( TYPE expectedValue_, const char *file_ = __FILE__, const int line_ = __LINE__ )
+{
+  TYPE value = std::numeric_limits< TYPE >::min( );
+  bool okStatus = value == expectedValue_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+  TYPE res;
+
+  std::cout << okString << ": test_min< " << res.Name( ) << " > => " << value;
+
+  if ( !okStatus )
+  {
+    std::cout << " => Expected '" << expectedValue_ << "', but got '" << value << "' at " << file_ << "(" << line_ << ")";
+  }
+
+  std::cout << std::endl;
+
+  return okStatus;
+}
+
+/////////////////////////
+template< typename TYPE >
+bool test_max( TYPE expectedValue_, const char *file_ = __FILE__, const int line_ = __LINE__ )
+{
+  uint64_t shift = TYPE::shift;
+  uint64_t one = 1ull;
+  uint64_t shifted = one << shift;
+  // std::cout << "shift = " << shift << ", shifted = " << shifted << std::endl;
+
+  TYPE value = std::numeric_limits< TYPE >::max( );
+  bool okStatus = value == expectedValue_;
+  std::string okString = okStatus ? "PASS" : "FAIL";
+  TYPE res;
+
+  std::cout << okString << ": test_max< " << res.Name( ) << " > => " << value;
+
+  if ( !okStatus )
+  {
+    std::cout << " => Expected '" << expectedValue_ << "', but got '" << value << "' at " << file_ << "(" << line_ << ")";
+  }
+
+  std::cout << std::endl;
+
+  return okStatus;
+}
+
 #if 0
   std::cout << "Infinity: " << std::numeric_limits< TYPE >::infinity( ) << std::endl;
 
-  std::cout << "Min: " << std::numeric_limits< TYPE >::min( ) << std::endl;
-
   // std::cout << "Mid: " << (uint64_t) mid << std::endl;
-
-  std::cout << "Max: " << std::numeric_limits< TYPE >::max( ) << std::endl;
 
   std::cout << "Lowest: " << std::numeric_limits< TYPE >::lowest( ) << std::endl;
 #endif
@@ -365,6 +408,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int8_t >( true );
     ok &= test_is_modulo<    Int8_t >( true );
     ok &= test_has_infinity< Int8_t >( true );
+    ok &= test_min<          Int8_t >( -127 );
+    ok &= test_max<          Int8_t >(  127 );
 
     ok &= test_add< Int8_t   >(   -1,          1,      0         );
     ok &= test_add< Int8_t   >(  127,          1,    Int8_t::INF );
@@ -384,6 +429,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int16_t >( true );
     ok &= test_is_modulo<    Int16_t >( true );
     ok &= test_has_infinity< Int16_t >( true );
+    ok &= test_min<          Int16_t >( -32767 );
+    ok &= test_max<          Int16_t >(  32767 );
   }
 
   // Int32_t
@@ -394,6 +441,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int32_t >( true );
     ok &= test_is_modulo<    Int32_t >( true );
     ok &= test_has_infinity< Int32_t >( true );
+    ok &= test_min<          Int32_t >( -2147483647 );
+    ok &= test_max<          Int32_t >(  2147483647 );
   }
 
   // Int64_t
@@ -404,6 +453,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int64_t >( true );
     ok &= test_is_modulo<    Int64_t >( true );
     ok &= test_has_infinity< Int64_t >( true );
+    ok &= test_min<          Int64_t >( -9223372036854775807 );
+    ok &= test_max<          Int64_t >(  9223372036854775807 );
   }
 
   // Int8u_t
@@ -414,6 +465,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int8u_t >( false );
     ok &= test_is_modulo<    Int8u_t >( false );
     ok &= test_has_infinity< Int8u_t >( true );
+    ok &= test_min<          Int8u_t >( -63 );
+    ok &= test_max<          Int8u_t >(  63 );
 
     ok &= test_mul< Int8u_t  >(   "5"_i8u,    "10"_i8u,    "50"_i8u    );
     ok &= test_mul< Int8u_t  >(   "7"_i8u,    "10"_i8u,    "63..."_i8u );
@@ -427,6 +480,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int16u_t >( false );
     ok &= test_is_modulo<    Int16u_t >( false );
     ok &= test_has_infinity< Int16u_t >( true );
+    ok &= test_min<          Int16u_t >( -16383 );
+    ok &= test_max<          Int16u_t >(  16383 );
 
     ok &= test_mul< Int16u_t >(   "5"_i16u,    "10"_i16u,    "50"_i16u    );
     ok &= test_mul< Int16u_t >(   "3"_i16u, "16000"_i16u, "16383..."_i16u );
@@ -443,6 +498,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int32u_t >( false );
     ok &= test_is_modulo<    Int32u_t >( false );
     ok &= test_has_infinity< Int32u_t >( true );
+    ok &= test_min<          Int32u_t >( -1073741823 );
+    ok &= test_max<          Int32u_t >(  1073741823 );
   }
 
   // Int64u_t
@@ -453,6 +510,8 @@ int main( int argc_, char **argv_ )
     ok &= test_is_exact<     Int64u_t >( false );
     ok &= test_is_modulo<    Int64u_t >( false );
     ok &= test_has_infinity< Int64u_t >( true );
+//    ok &= test_min<          Int64u_t >( -16383 ); // FIXME
+//    ok &= test_max<          Int64u_t >(  16383 ); // FIXME
   }
 
   if ( !ok )

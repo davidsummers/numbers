@@ -31,7 +31,9 @@ class IntXu_t
     using Utype = TYPE;
 
     // Definitions.
-    static constexpr const TYPE INF = 1ull << ( ( sizeof( TYPE ) * 8 ) - 1 );
+    static constexpr const Utype one   = 1ull;
+    static constexpr const Utype shift = ( sizeof( Utype ) * 8 ) - 1;
+    static constexpr const Utype INF   = one << shift;
 
     // Constructors.
     constexpr IntXu_t( )
@@ -79,19 +81,23 @@ class IntXu_t
     }
 
     // Special numbers
-    void SetInfinity( )
+    constexpr void SetInfinity( )
     {
       SetEncodedValue( IntXu_t< TYPE >::INF );
     }
 
-    void SetMin( )
+    constexpr void SetMin( )
     {
-      SetEncodedValue( IntXu_t< TYPE >::INF + 2 );
+      m_Value = INF;
+      m_Value++;
+      m_Value++;
     }
 
-    void SetMax( )
+    constexpr void SetMax( )
     {
-      SetEncodedValue( - ( IntXu_t< TYPE >::INF + 2 ) );
+      m_Value = INF;
+      m_Value--;
+      m_Value--;
     }
 
     void SetUncertain( const bool uncertain_ = true )
@@ -116,7 +122,7 @@ class IntXu_t
       return m_Value >> 1;
     }
 
-    // Binary operators
+    // Math operators
     IntXu_t< TYPE > operator *( const IntXu_t< TYPE > rhs_ ) const
     {
       const TYPE lhs = static_cast< TYPE >( *this );
@@ -149,6 +155,12 @@ class IntXu_t
       IntXu_t res( result );
       res.SetUncertain( ( lhs % rhs ) != 0 );
       return res;
+    }
+
+    // Comparison operators
+    bool operator ==( const IntXu_t< TYPE > &rhs_ ) const
+    {
+      return m_Value == rhs_.m_Value;
     }
 
     // Conversion to string output.
@@ -187,25 +199,18 @@ class IntXu_t
       return ss.str( );
     }
 
-
-    // Comparisons
-    bool operator <( const TYPE &rhs ) const;
-
-    // Self Comparisons.
-    bool operator ==( const IntXu_t< TYPE > &rhs ) const;
-
     // Encode/Decode
-    TYPE GetEncodedValue( ) const
+    constexpr TYPE GetEncodedValue( ) const
     {
       return m_Value;
     }
 
-    void SetEncodedValue( const TYPE & value_ )
+    constexpr void SetEncodedValue( const TYPE & value_ )
     {
       m_Value = value_;
     }
 
-    const char *Name( )
+    constexpr const char *Name( )
     {
       static_assert( sizeof( Otype ) == 1 ||
                      sizeof( Otype ) == 2 ||
