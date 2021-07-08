@@ -29,9 +29,6 @@ void test( )
   std::cout << myVal.Name( ) << std::endl;
   std::cout << "======" << std::endl;
 
-  std::cout << "MidType = " << midType << std::endl;
-  std::cout << "Mid = " << mid << std::endl;
-
   std::cout << "Size (bits): " << sizeof( TYPE ) * 8 << std::endl;
 
   std::cout << "Is Integer: " << std::numeric_limits< TYPE >::is_integer << std::endl;
@@ -46,11 +43,11 @@ void test( )
 
   std::cout << "Infinity: " << std::numeric_limits< TYPE >::infinity( ) << std::endl;
 
-  std::cout << "Min: " << std::numeric_limits< TYPE >::min( ) << std::endl;
+  std::cout << "Min:    " << std::numeric_limits< TYPE >::min( ) << std::endl;
 
   // std::cout << "Mid: " << (uint64_t) mid << std::endl;
 
-  std::cout << "Max: " << std::numeric_limits< TYPE >::max( ) << std::endl;
+  std::cout << "Max:     " << std::numeric_limits< TYPE >::max( ) << std::endl;
 
   std::cout << "Lowest: " << std::numeric_limits< TYPE >::lowest( ) << std::endl;
 
