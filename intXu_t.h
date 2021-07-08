@@ -22,13 +22,14 @@
 #include <limits>
 #include <sstream>
 
-template< typename TYPE >
+template< typename OTYPE_, typename UTYPE_ >
 class IntXu_t
 {
   public:
 
-    using Otype = TYPE;
-    using Utype = TYPE;
+    // Types
+    using Otype = OTYPE_;
+    using Utype = UTYPE_;
 
     // Definitions.
     static constexpr const Utype one   = 1ull;
@@ -40,16 +41,16 @@ class IntXu_t
     {
     }
 
-    constexpr IntXu_t( const TYPE value_ )
+    constexpr IntXu_t( const Otype value_ )
       : m_Value( value_ * 2 )
     {
-      TYPE max = static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::max( ) );
+      Otype max = static_cast< Otype >( std::numeric_limits< IntXu_t< Otype, Utype > >::max( ) );
       if ( value_ > max  )
       {
         m_Value = max * 2 + 1;
       }
 
-      TYPE min = static_cast< TYPE >( std::numeric_limits< IntXu_t< TYPE > >::min( ) );
+      Otype min = static_cast< Otype >( std::numeric_limits< IntXu_t< Otype, Utype > >::min( ) );
       if ( value_ < min  )
       {
         m_Value = max * 2 - 1;
@@ -83,7 +84,7 @@ class IntXu_t
     // Special numbers
     constexpr void SetInfinity( )
     {
-      SetEncodedValue( IntXu_t< TYPE >::INF );
+      SetEncodedValue( IntXu_t< Otype, Utype >::INF );
     }
 
     constexpr void SetMin( )
@@ -111,9 +112,9 @@ class IntXu_t
     }
 
     // Conversion operators
-    explicit operator TYPE( ) const
+    explicit operator Otype( ) const
     {
-      TYPE value = m_Value >> 1;
+      Otype value = m_Value >> 1;
       return value;
     }
 
@@ -123,13 +124,13 @@ class IntXu_t
     }
 
     // Math operators
-    IntXu_t< TYPE > operator *( const IntXu_t< TYPE > rhs_ ) const
+    IntXu_t< Otype, Utype > operator *( const IntXu_t< Otype, Utype > rhs_ ) const
     {
-      const TYPE lhs = static_cast< TYPE >( *this );
-      const TYPE rhs = static_cast< TYPE >( rhs_ );
+      const Otype lhs = static_cast< Otype >( *this );
+      const Otype rhs = static_cast< Otype >( rhs_ );
       int64_t result = lhs * rhs;
-      int64_t min = std::numeric_limits< IntXu_t< TYPE > >::min( );
-      int64_t max = std::numeric_limits< IntXu_t< TYPE > >::max( );
+      int64_t min = std::numeric_limits< IntXu_t< Otype, Utype > >::min( );
+      int64_t max = std::numeric_limits< IntXu_t< Otype, Utype > >::max( );
       bool overUnderFlow = false;
       if ( result < min )
       {
@@ -147,18 +148,18 @@ class IntXu_t
       return res;
     }
 
-    IntXu_t< TYPE > operator /( const IntXu_t< TYPE > rhs_ ) const
+    IntXu_t< Otype, Utype > operator /( const IntXu_t< Otype, Utype > rhs_ ) const
     {
-      const TYPE lhs = static_cast< TYPE >( *this );
-      const TYPE rhs = static_cast< TYPE >( rhs_ );
-      TYPE result = lhs / rhs;
+      const Otype lhs = static_cast< Otype >( *this );
+      const Otype rhs = static_cast< Otype >( rhs_ );
+      Otype result = lhs / rhs;
       IntXu_t res( result );
       res.SetUncertain( ( lhs % rhs ) != 0 );
       return res;
     }
 
     // Comparison operators
-    bool operator ==( const IntXu_t< TYPE > &rhs_ ) const
+    bool operator ==( const IntXu_t< Otype, Utype > &rhs_ ) const
     {
       return m_Value == rhs_.m_Value;
     }
@@ -169,7 +170,7 @@ class IntXu_t
       std::stringstream ss;
 
       bool uncertain = ( m_Value & 1 ) != 0;
-      TYPE value = m_Value >> 1;
+      Otype value = m_Value >> 1;
 
       if ( m_Value == INF )
       {
@@ -200,12 +201,12 @@ class IntXu_t
     }
 
     // Encode/Decode
-    constexpr TYPE GetEncodedValue( ) const
+    constexpr Otype GetEncodedValue( ) const
     {
       return m_Value;
     }
 
-    constexpr void SetEncodedValue( const TYPE & value_ )
+    constexpr void SetEncodedValue( const Otype & value_ )
     {
       m_Value = value_;
     }
@@ -244,13 +245,13 @@ class IntXu_t
 
   private:
 
-    TYPE m_Value = 0;
+    Otype m_Value = 0;
 };
 
-using Int8u_t  = IntXu_t< int8_t  >;
-using Int16u_t = IntXu_t< int16_t >;
-using Int32u_t = IntXu_t< int32_t >;
-using Int64u_t = IntXu_t< int64_t >;
+using Int8u_t  = IntXu_t< int8_t,  uint8_t  >;
+using Int16u_t = IntXu_t< int16_t, uint16_t >;
+using Int32u_t = IntXu_t< int32_t, uint32_t >;
+using Int64u_t = IntXu_t< int64_t, uint64_t >;
 
 //////////////////////////////////////////////////////////////////////////
 Int8u_t operator "" _i8u( const char *str_, const std::size_t /* size_ */ )
@@ -280,8 +281,8 @@ Int64u_t operator "" _i64u( const char *str_, const std::size_t /* size_ */ )
   return val;
 }
 
-template< typename TYPE >
-std::ostream &operator <<( std::ostream &s_, const IntXu_t< TYPE > &value_ )
+template< typename Otype, typename Utype >
+std::ostream &operator <<( std::ostream &s_, const IntXu_t< Otype, Utype > &value_ )
 {
   s_ << value_.ToString( );
   return s_;
@@ -293,8 +294,8 @@ bool operator <( const int8_t &lhs_, const Int8u_t &rhs_ );
 
 namespace std
 {
-  template < typename TYPE >
-  class numeric_limits< IntXu_t< TYPE > >
+  template < typename Otype, typename Utype >
+  class numeric_limits< IntXu_t< Otype, Utype > >
   {
     public:
 
@@ -310,30 +311,30 @@ namespace std
 
       static constexpr const bool is_integer = true;
 
-      static constexpr IntXu_t< TYPE > infinity( )
+      static constexpr IntXu_t< Otype, Utype > infinity( )
       {
-        IntXu_t< TYPE > value;
+        IntXu_t< Otype, Utype > value;
         value.SetInfinity( );
         return value;
       }
 
-      static constexpr IntXu_t< TYPE > lowest( )
+      static constexpr IntXu_t< Otype, Utype > lowest( )
       {
-        IntXu_t< TYPE > value;
+        IntXu_t< Otype, Utype > value;
         value.SetMin( );
         return value;
       }
 
-      static constexpr IntXu_t< TYPE > min( )
+      static constexpr IntXu_t< Otype, Utype > min( )
       {
-          IntXu_t< TYPE > value;
+          IntXu_t< Otype, Utype > value;
           value.SetMin( );
           return value;
       }
 
-      static constexpr IntXu_t< TYPE > max( )
+      static constexpr IntXu_t< Otype, Utype > max( )
       {
-          IntXu_t< TYPE > value;
+          IntXu_t< Otype, Utype > value;
           value.SetMax( );
           return value;
       }

@@ -16,18 +16,19 @@
 #include <limits>
 #include <sstream>
 
-template< typename OTYPE, typename UTYPE >
+template< typename OTYPE_, typename UTYPE_ >
 class IntX_t
 {
   public:
 
     // Types
-    using Otype = OTYPE;
-    using Utype = UTYPE;
+    using Otype = OTYPE_;
+    using Utype = UTYPE_;
 
     // Definitions
-    static constexpr const Otype shift = ( ( sizeof( Otype ) * 8 ) - 1 );
-    static constexpr const Otype INF = 1ULL << shift;
+    static constexpr const Utype one   = 1ull;
+    static constexpr const Utype shift = ( sizeof( Otype ) * 8 ) - 1;
+    static constexpr const Utype INF   = one << shift;
 
     // Constructors
     constexpr IntX_t( )
@@ -47,12 +48,15 @@ class IntX_t
 
     constexpr void SetMin( )
     {
-      m_Value = IntX_t< Otype, Utype >::INF + 1;
+      m_Value = IntX_t< Otype, Utype >::INF;
+      m_Value++;
     }
 
     constexpr void SetMax( )
     {
-      m_Value = - ( IntX_t< Otype, Utype >::INF + 1 );
+      m_Value = IntX_t< Otype, Utype >::INF;
+      m_Value++;
+      m_Value = -m_Value ;
     }
 
     // Math operators
