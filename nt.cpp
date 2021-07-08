@@ -248,10 +248,10 @@ bool test_min( TYPE expectedValue_, const char *file_ = __FILE__, const int line
 template< typename TYPE >
 bool test_max( TYPE expectedValue_, const char *file_ = __FILE__, const int line_ = __LINE__ )
 {
-  uint64_t shift = TYPE::shift;
-  uint64_t one = 1ull;
-  uint64_t shifted = one << shift;
-  // std::cout << "shift = " << shift << ", shifted = " << shifted << std::endl;
+  constexpr uint64_t shift = TYPE::shift;
+  constexpr uint64_t one = 1ull;
+  constexpr uint64_t shifted = one << shift;
+  std::cout << "shift = " << shift << ", shifted = " << shifted << std::endl;
 
   TYPE value = std::numeric_limits< TYPE >::max( );
   bool okStatus = value == expectedValue_;
@@ -394,8 +394,10 @@ int main( )
     ok &= test_is_exact<     Int64u_t >( false );
     ok &= test_is_modulo<    Int64u_t >( false );
     ok &= test_has_infinity< Int64u_t >( true );
-//    ok &= test_min<          Int64u_t >( -16383 ); // FIXME
-//    ok &= test_max<          Int64u_t >(  16383 ); // FIXME
+#if 1
+    ok &= test_min<          Int64u_t >( -9223372036854775807 ); // FIXME
+    ok &= test_max<          Int64u_t >(  9223372036854775807 ); // FIXME
+#endif
   }
 
   if ( !ok )

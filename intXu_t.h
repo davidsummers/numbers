@@ -118,9 +118,10 @@ class IntXu_t
       return value;
     }
 
-    operator uint64_t( )
+    explicit operator Utype( ) const
     {
-      return m_Value >> 1;
+      Utype value = m_Value >> 1;
+      return value;
     }
 
     // Math operators
@@ -129,8 +130,8 @@ class IntXu_t
       const Otype lhs = static_cast< Otype >( *this );
       const Otype rhs = static_cast< Otype >( rhs_ );
       int64_t result = lhs * rhs;
-      int64_t min = std::numeric_limits< IntXu_t< Otype, Utype > >::min( );
-      int64_t max = std::numeric_limits< IntXu_t< Otype, Utype > >::max( );
+      int64_t min = static_cast< Otype >( std::numeric_limits< IntXu_t< Otype, Utype > >::min( ) );
+      int64_t max = static_cast< Otype >( std::numeric_limits< IntXu_t< Otype, Utype > >::max( ) );
       bool overUnderFlow = false;
       if ( result < min )
       {
@@ -219,19 +220,19 @@ class IntXu_t
                      sizeof( Otype ) == 8,
                      "Invalid size for IntXu_t type." );
 
-      if constexpr ( sizeof( Utype ) == 1 )
+      if constexpr ( sizeof( Otype ) == 1 )
       {
         return "Int8u_t";
       }
-      else if constexpr ( sizeof( Utype ) == 2 )
+      else if constexpr ( sizeof( Otype ) == 2 )
       {
         return "Int16u_t";
       }
-      else if constexpr ( sizeof( Utype ) == 4 )
+      else if constexpr ( sizeof( Otype ) == 4 )
       {
         return "Int32u_t";
       }
-      else if constexpr ( sizeof( Utype ) == 8 )
+      else if constexpr ( sizeof( Otype ) == 8 )
       {
         return "Int64u_t";
       }

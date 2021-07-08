@@ -6,8 +6,9 @@ template< typename TYPE >
 void test( )
 {
   using utype = typename TYPE::Utype;
-  uint64_t midType = (utype) std::numeric_limits< TYPE >::max( );
-  uint64_t mid = ( midType ) + 1;
+  utype midType = (utype) std::numeric_limits< TYPE >::max( );
+  utype mid = midType + 1;
+
   if ( ! std::numeric_limits< TYPE >::is_exact )
   {
     mid = mid * 2;
@@ -27,6 +28,9 @@ void test( )
   std::cout << "======" << std::endl;
   std::cout << myVal.Name( ) << std::endl;
   std::cout << "======" << std::endl;
+
+  std::cout << "MidType = " << midType << std::endl;
+  std::cout << "Mid = " << mid << std::endl;
 
   std::cout << "Size (bits): " << sizeof( TYPE ) * 8 << std::endl;
 
