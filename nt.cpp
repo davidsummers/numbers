@@ -120,7 +120,7 @@ bool test_size( const int expectedSize_, const char *file_ = "", const int line_
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_size< " << res.Name( ) << " > => " << size;
+  std::cout << okString << ": test_size< " << res.Name( ) << " > => " << expectedSize_;
 
   if ( !okStatus )
   {
@@ -141,7 +141,7 @@ bool test_is_integer( bool expectedStatus_, const char *file_ = "", const int li
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_is_integer< " << res.Name( ) << " > => " << status;
+  std::cout << okString << ": test_is_integer< " << res.Name( ) << " > => " << expectedStatus_;
 
   if ( !okStatus )
   {
@@ -162,7 +162,7 @@ bool test_is_signed( bool expectedStatus_, const char *file_ = "", const int lin
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_is_signed< " << res.Name( ) << " > => " << status;
+  std::cout << okString << ": test_is_signed< " << res.Name( ) << " > => " << expectedStatus_;
 
   if ( !okStatus )
   {
@@ -183,7 +183,7 @@ bool test_is_exact( bool expectedStatus_, const char *file_ = "", const int line
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_is_exact< " << res.Name( ) << " > => " << status;
+  std::cout << okString << ": test_is_exact< " << res.Name( ) << " > => " << expectedStatus_;
 
   if ( !okStatus )
   {
@@ -204,7 +204,7 @@ bool test_is_modulo( bool expectedStatus_, const char *file_ = "", const int lin
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_is_modulo< " << res.Name( ) << " > => " << status;
+  std::cout << okString << ": test_is_modulo< " << res.Name( ) << " > => " << expectedStatus_;
 
   if ( !okStatus )
   {
@@ -225,7 +225,7 @@ bool test_has_infinity( bool expectedStatus_, const char *file_ = "", const int 
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_has_infinity< " << res.Name( ) << " > => " << status;
+  std::cout << okString << ": test_has_infinity< " << res.Name( ) << " > => " << expectedStatus_;
 
   if ( !okStatus )
   {
@@ -246,7 +246,7 @@ bool test_min( TYPE expectedValue_, const char *file_ = "", const int line_ = -1
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_min< " << res.Name( ) << " > => " << value;
+  std::cout << okString << ": test_min< " << res.Name( ) << " > => " << expectedValue_;
 
   if ( !okStatus )
   {
@@ -267,7 +267,7 @@ bool test_max( TYPE expectedValue_, const char *file_ = "", const int line_ = -1
   std::string okString = okStatus ? "PASS" : "FAIL";
   TYPE res;
 
-  std::cout << okString << ": test_max< " << res.Name( ) << " > => " << value;
+  std::cout << okString << ": test_max< " << res.Name( ) << " > => " << expectedValue_;
 
   if ( !okStatus )
   {
