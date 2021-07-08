@@ -191,7 +191,7 @@ class IntXu_t
           ss << "-";
         }
 
-        ss << (int) value;
+        ss << (int64_t) value;
 
         if ( uncertain )
         {
