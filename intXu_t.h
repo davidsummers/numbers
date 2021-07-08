@@ -103,7 +103,8 @@ class IntXu_t
 
     void SetUncertain( const bool uncertain_ = true )
     {
-      m_Value = ( m_Value & ( ~0ull << 1 ) ) | uncertain_;
+      Utype uncertain = uncertain_;
+      m_Value = ( m_Value & ( ~0ull << 1 ) ) | uncertain;
     }
 
     bool GetUncertain( ) const
