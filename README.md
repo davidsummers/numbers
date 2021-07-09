@@ -45,21 +45,21 @@ Representation
 
 S N U
 
-0 0 0 = 0
+0 0 0 = 0     exactly 0
 
-0 0 1 = 0... ( between 0 and 1 )
+0 0 1 = 0...  between 0 and 1
 
-0 1 0 = 1
+0 1 0 = 1     exactly 1
 
-0 1 1 = 1...
+0 1 1 = 1...  between 1 and infinity
+ 
+1 0 0 = INF   infinity (plus or minus)
 
-1 0 0 = INF
+1 0 1 = -1... between -1 and negative infinity
 
-1 0 1 = -1...
+1 1 0 = -1    exactly -1
 
-1 1 0 = -1
-
-1 1 1 = -0... ( between -1 and 0 )
+1 1 1 = -0... between -1 and 0
 
 
 
